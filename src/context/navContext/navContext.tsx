@@ -7,11 +7,11 @@ type NavContextType = {
 }
 const initialContext = {
     show: false,
-    setShow: (show: boolean) => {},
+    setShow: () => {},
 }
 const NavContext = createContext<NavContextType>(initialContext);
 export const NavProvider = ({children}: {children: React.ReactNode}) => {
-    const [show, setShow] = useState<boolean>(false);
+    const [show, setShow] = useState<boolean>(initialContext.show);
     return(
         <NavContext.Provider value={{show, setShow}}>
             {children}
@@ -20,8 +20,5 @@ export const NavProvider = ({children}: {children: React.ReactNode}) => {
 }
 export const useNavContext = (): NavContextType => {
     const context = useContext(NavContext);
-    if (!context) {  
-        throw new Error('useNavContext must be used within a NavProvider');  
-    } 
     return context;
 }
