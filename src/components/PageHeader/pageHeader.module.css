@@ -1,0 +1,15 @@
+.pageHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+@media screen and ( max-width: 767px) {
+    .pageHeader {
+        gap: 0.5rem;
+    }
+    .pageHeader img {
+        width: 20px;
+        height: 20px;
+    }
+}

@@ -1,0 +1,15 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    min-height: 5rem;
+    background-color: rgb(174, 224, 218);
+    position: relative;
+}
+@media screen and ( max-width: 767px) {
+    .brand img {
+        width: 30px;
+        height: 30px;
+    }
+}
