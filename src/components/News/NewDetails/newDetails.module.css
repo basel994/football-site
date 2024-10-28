@@ -16,3 +16,9 @@
     align-items: center;
     gap: 1rem;
 }
+@media screen and (max-width: 400px) {
+    .details img {
+        width: 100%;
+        height: 100%;
+    }
+}
