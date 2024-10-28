@@ -1,0 +1,7 @@
+.page {
+    padding-top: 1rem;
+}
+.error {
+    color: var(--errorColor);
+    text-align: center;
+}
