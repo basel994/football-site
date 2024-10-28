@@ -7,7 +7,7 @@ type ApiResponse = {
 export async function newDetailsFetch(id: string): Promise<ApiResponse> {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
     try {
-        const apiFetch = await fetch(`${baseUrl}/news/${id}`, {
+        const apiFetch = await fetch(`${baseUrl}/api/news/${id}`, {
             next: {
                 revalidate: 3600,
             }
