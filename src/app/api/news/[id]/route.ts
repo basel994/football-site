@@ -1,14 +1,8 @@
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
 
-interface Params {  
-    id: string;  
-} 
-export async function GET( 
-    request: NextRequest, 
-    {params}: {params: Params}) {
-        const headers = request.headers;
-        headers.get("Content-Type");
+export async function GET(  
+    {params}: {params: {id: string}}) {
         try {
             const fetchNewQuery = await sql `
             SELECT * FROM sportNews WHERE id = ${parseInt(params.id)}
