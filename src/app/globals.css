@@ -36,8 +36,16 @@ a {
 p {
   font-size: 1rem;
 }
+button {
+  transition: transform 0.3s linear;
+}
 .content {
   padding: 2rem 1rem;
+}
+@media (hover: hover) and (pointer: fine) {
+  button:hover {
+    transform: translateY(-0.1rem);
+  }
 }
 @media (prefers-color-scheme: dark) {
   html {
