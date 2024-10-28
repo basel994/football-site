@@ -1,5 +1,6 @@
 import { newDetailsFetch } from "@/apiFetching/news/newDetailsFetch";
 import styles from "./page.module.css";
+import NewDetails from "@/components/News/NewDetails/NewDetails";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id
@@ -9,7 +10,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
             {
                 !callApiFun.data ? 
                 <p className={styles.error}>{callApiFun.error}</p> : 
-                <p>{callApiFun.data.title}</p>
+                <NewDetails newObject={callApiFun.data} />
             }
         </div>
     );
