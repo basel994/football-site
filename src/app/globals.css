@@ -1,6 +1,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --errorColor: #f71303;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -52,5 +53,8 @@ p {
   }
   h2 {
     font-size: 0.9rem;
+  }
+  h3 {
+    font-size: 0.8rem;
   }
 }

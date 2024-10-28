@@ -6,11 +6,11 @@ export async function GET(request: NextRequest) {
     headers.get("Content-Type");
     try {
         const fetchNewsQuery = await sql `
-        SELECT * FROM news
+        SELECT * FROM sportNews
         `;
         return NextResponse.json({data: fetchNewsQuery.rows})
     } catch( error ) {
         console.log( error );
-        return NextResponse.json({error: "فشل التحميل"})
+        return NextResponse.json({error: "فشل في تحميـل الأخبــار! الرجــاء المحاولة لاحقـاً."})
     }
 }

@@ -12,9 +12,9 @@ export const newsFetch = async (): Promise<ApiResponse> => {
             const response: ApiResponse = await apiFetch.json();
             return response;
         }
-        return {error: "فشل الاتصال بالخادم!"}
+        return {error: "فشل في تحميـل الأخبــار!"}
     } catch( error ) {
         console.log( error );
-        return {error: "حصل خطأ غير متوقع"}
+        return {error: "فشل الاتصــال!"}
     }
 }

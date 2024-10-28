@@ -1,5 +1,6 @@
 import { newsFetch } from "@/apiFetching/news/newsFetch";
 import styles from "./news.module.css";
+import New from "./New/New";
 
 export default async function News() {
     const callApiFun = await newsFetch();
@@ -7,10 +8,11 @@ export default async function News() {
     return(
         <div className={styles.news}>
             {
-                callApiFun.error && <p>{callApiFun.error}</p>
-            }
-            {
-                callApiFun.data && callApiFun.data.length > 0 ? <p>{callApiFun.data[0].title}</p>:null
+                !callApiFun.data ? 
+                <p className={styles.error}>{callApiFun.error}</p> : 
+                callApiFun.data.map((newObject) => {
+                    return <New key={newObject.id} newObject={newObject} />
+                })
             }
         </div>
     );
