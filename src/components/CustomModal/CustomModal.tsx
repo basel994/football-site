@@ -13,7 +13,7 @@ export default function CustomModal(
         setVisible: (visible: boolean) => void; 
         title: string;
         body: React.ReactNode; 
-        onOk: () => {};
+        onOk: () => void;
     }
  ) {
     const modalClose = () => {
