@@ -1,0 +1,29 @@
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+}
+.container input {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-bottom: 0.1rem solid green;
+    outline: none;
+    background-color: transparent;
+    font-size: 1.2rem;
+}
+.container label {
+    position: absolute;
+    top: 0.5rem;
+    right: auto;
+    left: auto;
+    pointer-events: none;
+    color: rgb(92, 90, 90);
+    transition: all 0.2s linear;
+}
+.container input:focus + label, 
+.container input:not(:placeholder-shown) + label {
+    top: -1rem;
+}

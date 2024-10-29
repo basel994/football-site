@@ -1,0 +1,20 @@
+.container {
+    cursor: pointer;
+}
+.container input {
+    display: none;
+}
+.label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+@media screen and ( max-width: 767px ) {
+    .label {
+        gap: 0.5rem;
+    }
+    .label img {
+       width: 1rem;
+       height: 1rem;
+    }   
+}
