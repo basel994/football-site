@@ -51,7 +51,7 @@ export default function AddChampion() {
     return(
         <>
             <div className={styles.container} title="إضافة بطولـة جديـدة" onClick={()=>setVisible(!visible)}>
-                <span></span>
+                <span className={styles.add}></span>
                 {
                     error || message && 
                     <div className={styles.response}>

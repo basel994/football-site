@@ -10,13 +10,13 @@
     cursor: pointer;
     height: 1.5rem;
 }
-.container span {
+.container .add {
     position: relative;
     background-color: rgb(17, 112, 112);
     width: 1.5rem;
     height: 0.2rem;
 }
-.container span::after {
+.container .add::after {
     position: absolute;
     content: "";
     top: 0;
