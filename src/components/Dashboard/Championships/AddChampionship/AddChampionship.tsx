@@ -12,6 +12,7 @@ export default function AddChampion() {
     const [ visible, setVisible ] = useState<boolean>(false);
     const [ name, setName ] = useState<string>("");
     const [ logo, setLogo ] = useState<File | null>();
+    const [ loading, setLoading ] = useState<boolean>(false);
     const [ error, setError ] = useState<string>("");
     const [ message, setMessage ] = useState<string>("");
     const onAddClicked = () => {
@@ -26,15 +27,18 @@ export default function AddChampion() {
             setError("جميـع الحقـول مطلوبـة");
         }
         else {
+            setLoading(true);
             const formData = new FormData();
             formData.append("name", name);
             formData.append("logo", logo);
             const callAddFun = await addNewChampionship(formData);
             if(callAddFun.error) {
+                setLoading(false);
                 setMessage("");
                 setError(callAddFun.error);
             }
             else if(callAddFun.message) {
+                setLoading(false);
                 setError("");
                 setMessage(callAddFun.message);
                 router.refresh();
@@ -62,7 +66,8 @@ export default function AddChampion() {
             body={modalBody} 
             onOk={onOk} 
             message={message} 
-            error={error}/>
+            error={error} 
+            okButtonName={loading ? "جـارِ الإضافــة..." : "إضافــة"}/>
         </>
     );
 }

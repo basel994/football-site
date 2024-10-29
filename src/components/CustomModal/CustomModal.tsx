@@ -9,6 +9,8 @@ export default function CustomModal(
         body, 
         message, 
         error, 
+        okButtonName, 
+        closeButtonName, 
         onOk, 
     } : {
         visible: boolean;
@@ -16,7 +18,9 @@ export default function CustomModal(
         title: string;
         body: React.ReactNode; 
         message?: string;
-        error?: string;
+        error?: string; 
+        okButtonName?: string;
+        closeButtonName?: string;
         onOk: () => void;
     }
  ) {
@@ -42,11 +46,11 @@ export default function CustomModal(
                     }
                 </div>
                 <div className={styles.footer}>
-                    <CustomButton title="حفـظ" 
+                    <CustomButton title={okButtonName ? okButtonName : "مـوافـق"} 
                     bg="green" 
                     color="white" 
                     clicked={onOk}/>
-                    <CustomButton title="إلغــاء" 
+                    <CustomButton title={closeButtonName ? closeButtonName : "إغـلاق"} 
                     bg="red" 
                     color="white" 
                     clicked={modalClose} />
