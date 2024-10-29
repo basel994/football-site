@@ -52,24 +52,24 @@ export default function AddChampion() {
         <>
             <div className={styles.container} title="إضافة بطولـة جديـدة" onClick={()=>setVisible(!visible)}>
                 <span className={styles.add}></span>
-                {
-                    error || message && 
-                    <div className={styles.response}>
-                        {
-                            error ? 
-                            <p className={styles.error}>{error}</p> : 
-                            <p className={styles.success}>{message}</p>
-                        }
-                        <div className={styles.close} onClick={hide}>
-                            <span></span>
-                        </div>
-                    </div>
-                }
             </div>
             <CustomModal visible={visible} setVisible={setVisible} 
             title="إضافـة بطولــة جديـدة" 
             body={modalBody} 
             onOk={onOk}/>
+            {
+                error || message && 
+                <div className={styles.response}>
+                    {
+                        error ? 
+                        <p className={styles.error}>{error}</p> : 
+                        <p className={styles.success}>{message}</p>
+                    }
+                    <div className={styles.close} onClick={hide}>
+                        <span></span>
+                    </div>
+                </div>
+            }
         </>
     );
 }

@@ -30,13 +30,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
-    position: relative;
+    gap: 1rem;
+    position: absolute;
+    top: 0;
+    right: auto;
+    left: auto;
 }
 .close {
-    position: absolute;
-    right: 0;
-    top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
