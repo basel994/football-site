@@ -3,6 +3,7 @@
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
+    padding-bottom: 1rem;
 }
 @media screen and ( max-width: 767px) {
     .pageHeader {

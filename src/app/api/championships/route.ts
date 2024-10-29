@@ -10,6 +10,19 @@ cloudinary.v2.config({
 type CloudinaryResponse = {  
     secure_url: string;  
   } 
+export async function GET( request: NextRequest) {
+    const headers = request.headers;
+    headers.get("Content-Type");
+    try {
+        const getChampionshipsQuery = await sql `
+        SELECT * FROM championships
+        `;
+        return NextResponse.json({data: getChampionshipsQuery.rows});
+    } catch( error ) {
+        console.log( error );
+        return NextResponse.json({error: "فشل في تحميـل البطولات! الرجــاء المحاولة لاحقـاً."})
+    }
+}
 export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const name = formData.get("name") as string;
