@@ -17,8 +17,8 @@ export default function ChampionshipsTable({championshipData}: {championshipData
                     championshipData.map((championshipObject, index) => {
                         return(
                             <tr key={championshipObject.id}>
-                                <td>{index}</td>
-                                <td>{championshipObject.name}</td>
+                                <td><p>{index + 1}</p></td>
+                                <td><p>{championshipObject.name}</p></td>
                                 <td>
                                     <Image src={championshipObject.logo} 
                                     alt="" 

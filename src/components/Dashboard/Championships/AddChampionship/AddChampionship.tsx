@@ -36,6 +36,10 @@ export default function AddChampion() {
             }
         }
     }
+    const hide = () => {
+        setError(undefined);
+        setMessage(undefined);
+    }
     const modalBody = <div className={styles.modalBody}>
         <TextInput label="أدخـل اسم البطولــة" 
         type="text" 
@@ -48,7 +52,19 @@ export default function AddChampion() {
         <>
             <div className={styles.container} title="إضافة بطولـة جديـدة" onClick={()=>setVisible(!visible)}>
                 <span></span>
-                <p>{error ? error : message}</p>
+                {
+                    error || message && 
+                    <div className={styles.response}>
+                        {
+                            error ? 
+                            <p className={styles.error}>{error}</p> : 
+                            <p className={styles.success}>{message}</p>
+                        }
+                        <div className={styles.close} onClick={hide}>
+                            <span></span>
+                        </div>
+                    </div>
+                }
             </div>
             <CustomModal visible={visible} setVisible={setVisible} 
             title="إضافـة بطولــة جديـدة" 
