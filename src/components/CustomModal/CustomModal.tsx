@@ -7,12 +7,16 @@ export default function CustomModal(
         setVisible, 
         title,
         body, 
+        message, 
+        error, 
         onOk, 
     } : {
         visible: boolean;
         setVisible: (visible: boolean) => void; 
         title: string;
         body: React.ReactNode; 
+        message?: string;
+        error?: string;
         onOk: () => void;
     }
  ) {
@@ -28,7 +32,15 @@ export default function CustomModal(
                         <span></span>
                     </div>
                 </div>
-                <div className={styles.body}>{body}</div>
+                <div className={styles.body}>
+                    {body}
+                    {
+                        message && <div className={styles.message}>{message}</div>
+                    }
+                                        {
+                        error && <div className={styles.error}>{error}</div>
+                    }
+                </div>
                 <div className={styles.footer}>
                     <CustomButton title="حفـظ" 
                     bg="green" 

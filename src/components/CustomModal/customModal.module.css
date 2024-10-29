@@ -19,7 +19,7 @@
     pointer-events: fill;
 }
 .modal {
-    flex: 0.5;
+    flex: 0.6;
     background-color: rgb(241, 241, 241);
     border-radius: 1rem;
 }
@@ -53,9 +53,31 @@
     background-color: rgb(230, 12, 12);
     transform: rotate(-90deg);
 }
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.message {
+    align-self: center;
+    color: var(--successColor);
+}
+.error {
+    align-self: center;
+    color: var(--errorColor);
+}
 .footer {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    padding: 1rem;
+}
+@media screen and ( max-width: 767px) {
+    .modal {
+        flex: 0.8;
+    }
+    .message, .error {
+        font-size: 0.7rem;
+    }
 }

@@ -8,7 +8,7 @@ export default function FileInput({
 }: {
     label?: string; 
     icon?: string;
-    setState: (state: File | undefined) => void;
+    setState: (state: File) => void;
 }) {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];

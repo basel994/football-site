@@ -10,10 +10,17 @@ import { useRouter } from "next/navigation";
 export default function AddChampion() {
     const router = useRouter();
     const [ visible, setVisible ] = useState<boolean>(false);
-    const [ name, setName ] = useState<string | undefined >(undefined);
-    const [ logo, setLogo ] = useState<File | undefined>(undefined);
-    const [ error, setError ] = useState<string | undefined>(undefined);
-    const [ message, setMessage ] = useState<string | undefined>(undefined);
+    const [ name, setName ] = useState<string>("");
+    const [ logo, setLogo ] = useState<File | null>();
+    const [ error, setError ] = useState<string>("");
+    const [ message, setMessage ] = useState<string>("");
+    const onAddClicked = () => {
+        setVisible(true);
+        setError("");
+        setMessage("");
+        setName("");
+        setLogo(null);
+    }
     const onOk = async () => {
         if(!name || !logo) {
             setError("جميـع الحقـول مطلوبـة");
@@ -24,25 +31,20 @@ export default function AddChampion() {
             formData.append("logo", logo);
             const callAddFun = await addNewChampionship(formData);
             if(callAddFun.error) {
-                setMessage(undefined);
+                setMessage("");
                 setError(callAddFun.error);
-                setVisible(false);
             }
             else if(callAddFun.message) {
-                setError(undefined);
+                setError("");
                 setMessage(callAddFun.message);
-                setVisible(false);
                 router.refresh();
             }
         }
     }
-    const hide = () => {
-        setError(undefined);
-        setMessage(undefined);
-    }
     const modalBody = <div className={styles.modalBody}>
         <TextInput label="أدخـل اسم البطولــة" 
         type="text" 
+        value={name}
         setState={setName}/>
         <FileInput label="تحميـل الشعـار" 
         icon="/images/dashboard/championship/uploadpicture.ico" 
@@ -50,26 +52,17 @@ export default function AddChampion() {
     </div>
     return(
         <>
-            <div className={styles.container} title="إضافة بطولـة جديـدة" onClick={()=>setVisible(!visible)}>
-                <span className={styles.add}></span>
+            <div className={styles.container}>
+                <div className={styles.add} title="إضافة بطولـة جديـدة" onClick={onAddClicked}>
+                    <span></span>
+                </div>
             </div>
             <CustomModal visible={visible} setVisible={setVisible} 
             title="إضافـة بطولــة جديـدة" 
             body={modalBody} 
-            onOk={onOk}/>
-            {
-                error || message && 
-                <div className={styles.response}>
-                    {
-                        error ? 
-                        <p className={styles.error}>{error}</p> : 
-                        <p className={styles.success}>{message}</p>
-                    }
-                    <div className={styles.close} onClick={hide}>
-                        <span></span>
-                    </div>
-                </div>
-            }
+            onOk={onOk} 
+            message={message} 
+            error={error}/>
         </>
     );
 }

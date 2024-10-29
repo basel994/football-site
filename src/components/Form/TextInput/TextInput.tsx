@@ -3,11 +3,13 @@ import styles from "./input.module.css";
 export default function TextInput({ 
     label, 
     type, 
-    setState,
+    setState, 
+    value,
 }: { 
     label: string; 
     type: "text" | "password" | "email"; 
-    setState: (state: string | undefined) => void;
+    setState: (state: string) => void; 
+    value: string;
 }) {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setState(e.target.value);
@@ -15,6 +17,7 @@ export default function TextInput({
     return(
         <div className={styles.container}>
             <input type={type} placeholder=" " 
+            value={value} 
             onChange={onChange}/>
             <label><p>{label}</p></label>
         </div>
