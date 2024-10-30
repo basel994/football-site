@@ -5,6 +5,7 @@ export default function CustomModal(
     { 
         visible,
         setVisible, 
+        warning, 
         title,
         body, 
         message, 
@@ -15,6 +16,7 @@ export default function CustomModal(
     } : {
         visible: boolean;
         setVisible: (visible: boolean) => void; 
+        warning?: boolean; 
         title: string;
         body: React.ReactNode; 
         message?: string;
@@ -30,7 +32,7 @@ export default function CustomModal(
     return(
         <div className={`${styles.container} ${visible ? styles.show : styles.hide}`}>
             <div className={styles.modal}>
-                <div className={styles.header}>
+                <div className={styles.header} style={{backgroundColor: warning ? "red" : "transparent"}}>
                     <p>{title}</p>
                     <div className={styles.close} onClick={modalClose}>
                         <span></span>

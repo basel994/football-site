@@ -1,6 +1,7 @@
 import { ChampionshipType } from "@/types/championshipType";
 import styles from "./championshipsShow.module.css";
 import Image from "next/image";
+import ChampionDelete from "./ChampionMutation/ChampionDelete";
 
 export default function ChampionshipsTable({championshipData}: {championshipData: ChampionshipType[]}) {
     return(
@@ -10,6 +11,8 @@ export default function ChampionshipsTable({championshipData}: {championshipData
                     <th><p>التسلسل</p></th>
                     <th><p>البطولــة</p></th>
                     <th><p>الشعــار</p></th>
+                    <th><p>تعـديل</p></th>
+                    <th><p>حــذف</p></th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +27,10 @@ export default function ChampionshipsTable({championshipData}: {championshipData
                                     alt="" 
                                     width={30} 
                                     height={30} />
+                                </td>
+                                <td>تعـديل</td>
+                                <td>
+                                    <ChampionDelete id={String(championshipObject.id)} name={championshipObject.name}/>
                                 </td>
                             </tr>
                         );
