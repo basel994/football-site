@@ -2,6 +2,7 @@ import { ChampionshipType } from "@/types/championshipType";
 import styles from "./championshipsShow.module.css";
 import Image from "next/image";
 import ChampionDelete from "./ChampionMutation/ChampionDelete";
+import ChampionUpdate from "./ChampionMutation/ChampionUpdate";
 
 export default function ChampionshipsTable({championshipData}: {championshipData: ChampionshipType[]}) {
     return(
@@ -28,7 +29,9 @@ export default function ChampionshipsTable({championshipData}: {championshipData
                                     width={30} 
                                     height={30} />
                                 </td>
-                                <td>تعـديل</td>
+                                <td>
+                                    <ChampionUpdate id={String(championshipObject.id)} name={championshipObject.name} />
+                                </td>
                                 <td>
                                     <ChampionDelete id={String(championshipObject.id)} name={championshipObject.name}/>
                                 </td>

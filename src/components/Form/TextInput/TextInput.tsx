@@ -19,7 +19,7 @@ export default function TextInput({
             <input type={type} placeholder=" " 
             value={value} 
             onChange={onChange}/>
-            <label><p>{label}</p></label>
+            <label>{label}</label>
         </div>
     );
 }

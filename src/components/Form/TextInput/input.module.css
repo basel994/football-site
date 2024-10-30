@@ -12,9 +12,10 @@
     border-bottom: 0.1rem solid green;
     outline: none;
     background-color: transparent;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 .container label {
+    font-size: 0.7rem;
     position: absolute;
     top: 0.5rem;
     right: auto;
@@ -26,4 +27,5 @@
 .container input:focus + label, 
 .container input:not(:placeholder-shown) + label {
     top: -1rem;
+    font-size: 0.6rem;
 }
