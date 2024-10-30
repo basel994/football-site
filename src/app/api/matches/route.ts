@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
             `;
             return NextResponse.json(getDatedMatchesQuery.rows);
         } catch(error) {
+            console.log(error);
             return NextResponse.json({error: "حدث خطأ! حـاول مجددا"})
         }
     }
@@ -21,6 +22,7 @@ export async function GET(request: NextRequest) {
             `;
             return NextResponse.json(getMatchesQuery.rows);
         } catch(error) {
+            console.log(error);
             return NextResponse.json({error: "حدث خطأ! حـاول مجددا"})
         }
     }
