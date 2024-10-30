@@ -32,7 +32,7 @@ export default function ChampionUpdate({id, name}: {id: string; name: string}) {
         else {
             setLoading(true);
             const formData = new FormData();
-            formData.append("name", name);
+            formData.append("newName", newName);
             if(newLogo) {
                 formData.append("newLogo", newLogo);
             }
