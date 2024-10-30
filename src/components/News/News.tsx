@@ -4,7 +4,6 @@ import New from "./New/New";
 
 export default async function News() {
     const callApiFun = await newsFetch();
-    console.log(callApiFun);
     return(
         <div className={styles.news}>
             {
