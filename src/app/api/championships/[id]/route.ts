@@ -25,9 +25,9 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     const id = (await params).id;   
     const formData = await request.formData();
     const newName = formData.get("newName") as string;
-    const newLogo = formData.get("newLogo") as File;
+    const newLogo = formData.get("newLogo") as File | string;
     try {  
-        if(!newLogo){
+        if(typeof(newLogo) === "string"){
             
             const result = await sql`  
             UPDATE championships

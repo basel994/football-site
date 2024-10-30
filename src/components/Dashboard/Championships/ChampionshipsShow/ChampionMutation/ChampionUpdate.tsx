@@ -36,6 +36,7 @@ export default function ChampionUpdate({id, name}: {id: string; name: string}) {
             if(newLogo) {
                 formData.append("newLogo", newLogo);
             }
+            else formData.append("newLogo", "");
             const callAddFun = await updateChampionship(id, formData);
             if(callAddFun.error) {
                 setLoading(false);
