@@ -2,36 +2,17 @@ import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
 import cloudinary from "cloudinary";
 
-export async function DELETE(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
-    const headers = request.headers;
-    headers.get("Content-Type");
-    const id = (await params).id;
-    try {
-        const deleteChampionQuery = await sql `
-        DELETE FROM championships WHERE id = ${parseInt(id)} RETURNING id
-        `;
-        if(deleteChampionQuery.rows.length > 0) {
-            return NextResponse.json({message: "تم حـذف البطولــة بنجـاح"});
-        }
-        else {
-            return NextResponse.json({error: "لم يتم حـذف البطولــة!"});
-        }
-    } catch(error) {
-        console.log(error);
-        return NextResponse.json({error: "فشل في حـذف البطولــة!"});
-    }
-}
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {  
     const id = (await params).id;   
     const formData = await request.formData();
     const newName = formData.get("newName") as string;
-    const newLogo = formData.get("newLogo") as File | string;
+    const newLogo = formData.get("newLogo") as File;
     try {  
-        if(typeof(newLogo) === "string"){
+        if(!newLogo){
             
             const result = await sql`  
             UPDATE championships
-            SET name = ${newName}, 
+            SET name = ${newName} 
             WHERE id = ${parseInt(id)}  
             RETURNING *  
             `;
@@ -85,4 +66,24 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         console.error(error);  
         return NextResponse.json({ error: "فشل في تعـديل البطولــة" }, { status: 500 });  
     }  
+}
+
+export async function DELETE(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
+    const headers = request.headers;
+    headers.get("Content-Type");
+    const id = (await params).id;
+    try {
+        const deleteChampionQuery = await sql `
+        DELETE FROM championships WHERE id = ${parseInt(id)} RETURNING id
+        `;
+        if(deleteChampionQuery.rows.length > 0) {
+            return NextResponse.json({message: "تم حـذف البطولــة بنجـاح"});
+        }
+        else {
+            return NextResponse.json({error: "لم يتم حـذف البطولــة!"});
+        }
+    } catch(error) {
+        console.log(error);
+        return NextResponse.json({error: "فشل في حـذف البطولــة!"});
+    }
 }

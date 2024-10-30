@@ -12,7 +12,7 @@ export default function ChampionUpdate({id, name}: {id: string; name: string}) {
     const router = useRouter();
     const [visible, setVisible] = useState<boolean>(false);
     const [ newName, setNewName ] = useState<string>(name);
-    const [ newLogo, setNewLogo ] = useState<File | null>();
+    const [ newLogo, setNewLogo ] = useState<File | null>(null);
     const [ loading, setLoading ] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
     const [error, setError] = useState<string>("");
@@ -26,7 +26,7 @@ export default function ChampionUpdate({id, name}: {id: string; name: string}) {
         setState={setNewLogo}/>
     </div>
     const onOk = async () => {
-        if(!name) {
+        if(!newName) {
             setError("الرجـاء إدخـال اسم جديـد للبطـولـة!");
         }
         else {
@@ -36,7 +36,6 @@ export default function ChampionUpdate({id, name}: {id: string; name: string}) {
             if(newLogo) {
                 formData.append("newLogo", newLogo);
             }
-            else formData.append("newLogo", "");
             const callAddFun = await updateChampionship(id, formData);
             if(callAddFun.error) {
                 setLoading(false);

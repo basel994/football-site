@@ -6,7 +6,7 @@ export const updateChampionship = async (id: string, formData: FormData): Promis
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
     try {
         const apiFetch = await fetch(`${baseUrl}/api/championships/${id}`, {
-            method: 'PATCH',
+            method: "PATCH",
             body: formData,
         });
         if(apiFetch.ok) {
