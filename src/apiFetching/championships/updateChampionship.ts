@@ -13,7 +13,7 @@ export const updateChampionship = async (id: string, formData: FormData): Promis
             const response: ApiResponse = await apiFetch.json();
             return response;
         }
-        return {error: "فشل في تعـديل البطولـة!"}
+        return {error: "لم يتم تعـديل البطولـة!"}
     } catch( error ) {
         console.log( error );
         return {error: "فشل الاتصــال!"}
