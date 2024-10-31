@@ -12,7 +12,7 @@ export default function TeamsTable({teamsData}: {teamsData: TeamType[]}) {
                     <th><p>التسلسل</p></th>
                     <th><p>الاسم</p></th>
                     <th><p>البلد</p></th>
-                    <th><p>سنت التأسيس</p></th>
+                    <th><p>سنـة التأسيس</p></th>
                     <th><p>المدرب</p></th>
                     <th><p>الشعــار</p></th>
                     <th><p>تعـديل</p></th>

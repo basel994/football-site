@@ -14,7 +14,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         if(!newLogo){
             
             const result = await sql`  
-            UPDATE championships
+            UPDATE teams
             SET name = ${newName}, 
             country = ${newCountry}, 
             founded_at = ${parseInt(newFounded)}, 
@@ -23,10 +23,10 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
             RETURNING *  
             `;
             if (result.rows.length === 0) {  
-                return NextResponse.json({ error: "البطولـة غـير موجودة!" }, { status: 404 });  
+                return NextResponse.json({ error: "المنتخب/الفريق غـير موجود!" }, { status: 404 });  
             }  
     
-            return NextResponse.json({ message: "تم تعديل البطولـة بنجـاح" }, { status: 200 }); 
+            return NextResponse.json({ message: "تم تعديل المنتخب/الفريق بنجـاح" }, { status: 200 }); 
         }
         else {
             cloudinary.v2.config({  
@@ -54,7 +54,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
                   });
                   const uploadResult = await uploadResultPromise;
                   const res = await sql`  
-                  UPDATE championships
+                  UPDATE teams
                   SET name = ${newName}, 
                   country = ${newCountry}, 
                   founded_at = ${parseInt(newFounded)}, 
