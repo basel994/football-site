@@ -15,7 +15,7 @@ export default async function Page() {
                 {
                     getMatches.data ? getMatches.data.map((match)=>{
                         return(
-                            <p>{match.team_one_score}</p>
+                            <p key={match.id}>{match.team_one_score}</p>
                         );
                     }) : <p>{getMatches.error}</p>
                 }
