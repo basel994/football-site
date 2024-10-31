@@ -1,6 +1,6 @@
 "use client"
 import styles from "./teamMutation.module.css";
-import { updateChampionship } from "@/apiFetching/championships/updateChampionship";
+import { updateTeam } from "@/apiFetching/teams/updateTeam";
 import CustomButton from "@/components/CustomButton/CustomButton";
 import CustomModal from "@/components/CustomModal/CustomModal";
 import FileInput from "@/components/Form/FileInput/FileInput";
@@ -55,7 +55,7 @@ export default function TeamUpdate({teamObject}: {teamObject: TeamType}) {
             if(newLogo) {
                 formData.append("newLogo", newLogo);
             }
-            const callAddFun = await updateChampionship(String(teamObject.id), formData);
+            const callAddFun = await updateTeam(String(teamObject.id), formData);
             if(callAddFun.error) {
                 setLoading(false);
                 setMessage("");
