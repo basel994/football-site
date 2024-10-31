@@ -8,9 +8,9 @@ export async function GET(request: NextRequest) {
     if(date && !time) {
         try {
             const getDatedMatchesQuery = await sql `
-            SELECT * FROM matches WHERE match_date = ${date} 
+            SELECT * FROM matches WHERE match_date::date = ${date} 
             `;
-            return NextResponse.json(getDatedMatchesQuery.rows);
+            return NextResponse.json({data: getDatedMatchesQuery.rows});
         } catch(error) {
             console.log(error);
             return NextResponse.json({error: "حدث خطأ في التاريخ! حـاول مجددا"})
@@ -19,10 +19,10 @@ export async function GET(request: NextRequest) {
     else if(date && time) {
         try {
             const getDatedMatchesQuery = await sql `
-            SELECT * FROM matches WHERE match_date = ${date} 
+            SELECT * FROM matches WHERE match_date::date = ${date} 
             AND TO_CHAR(match_time, 'HH24:MI') = ${time}
             `;
-            return NextResponse.json(getDatedMatchesQuery.rows);
+            return NextResponse.json({data: getDatedMatchesQuery.rows});
         } catch(error) {
             console.log(error);
             return NextResponse.json({error: "حدث خطأ في التاريخ او الوقت! حـاول مجددا"})
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
             const getMatchesQuery = await sql `
             SELECT * FROM matches 
             `;
-            return NextResponse.json(getMatchesQuery.rows);
+            return NextResponse.json({data: getMatchesQuery.rows});
         } catch(error) {
             console.log(error);
             return NextResponse.json({error: "حدث خطأ! حـاول مجددا"})
