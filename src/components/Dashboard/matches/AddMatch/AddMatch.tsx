@@ -44,7 +44,7 @@ export default function AddMatch() {
     const [ team_one, setTeam_one ] = useState<string>("");
     const [ team_two, setTeam_two ] = useState<string>("");
     const [teams, setTeams] = useState<{key: string, value: string}[] | null>(null);
-    const [championships, setChampionships] = useState<{key: string, value: string}[] | null>(null)
+    const [championships, setChampionships] = useState<{key: string, value: string}[] | null>(null);
     const [ championship, setChampionship ] = useState<string>("");
     const [ team_one_score, setTeam_one_score ] = useState<string>("");
     const [ team_two_score, setTeam_two_score ] = useState<string>("");

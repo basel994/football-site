@@ -4,10 +4,14 @@ type StringDateType = {
 }
 export function dateForm(date: Date): StringDateType {
     const toDate = new Date(date);
+    const hours = toDate.getHours();  
+    const minutes = toDate.getMinutes();   
+    const hoursForm = hours < 10 ? '0' + hours : hours;  
+    const minutesForm = minutes < 10 ? '0' + minutes : minutes;  
     const stringTime = `
-    ${toDate.getMinutes()} : 
-    ${toDate.getHours()} 
-    ${toDate.getHours() < 12 ? "ص" : "م"}
+    ${minutesForm} : 
+    ${hoursForm} 
+    ${hours < 12 ? "ص" : "م"}
     `;
     const today = new Date();
     const yesterday = new Date(today);
