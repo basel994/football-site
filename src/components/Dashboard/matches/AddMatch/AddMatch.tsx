@@ -7,33 +7,47 @@ import { useRouter } from "next/navigation";
 import { addNewTeam } from "@/apiFetching/teams/addNewTeam";
 import { teamsFetch } from "@/apiFetching/teams/teamsFetch";
 import SelectInput from "@/components/Form/SelectInput/SelectInput";
+import { championshipsFetch } from "@/apiFetching/championships/championshipsFetch";
 
 export default function AddMatch() {
     useEffect(() => {
         const getTeams = async () => {
             const callAddFun = await teamsFetch();
             if(callAddFun.error){
-                console.log("callAddFun.error");
-                setTeams([{key:"غير معروف",value:""}]);
+                setTeams(null);
             }
-            else
-{            const teamsMapped = callAddFun.data?.map((team) => 
-            ({key: team.name, value: String(team.id)})
-                );
+            else {
+                const teamsMapped = callAddFun.data?.map((team) => 
+                ({key: team.name, value: String(team.id)}));
                 if(teamsMapped)
-                setTeams(teamsMapped);}
+                setTeams(teamsMapped);
+            }
+        }
+        const getChampionships = async () => {
+            const callAddFun = await championshipsFetch();
+            if(callAddFun.error){
+                setChampionships(null);
+            }
+            else {
+                const championsMapped = callAddFun.data?.map((champion) => 
+                ({key: champion.name, value: String(champion.id)}));
+                if(championsMapped)
+                setChampionships(championsMapped);
+            }
         }
         getTeams();
+        getChampionships()
     }, []);
     const router = useRouter();
     const [ visible, setVisible ] = useState<boolean>(false);
     const [ team_one, setTeam_one ] = useState<string>("");
     const [ team_two, setTeam_two ] = useState<string>("");
-    const [teams, setTeams] = useState<{key: string, value: string}[]>([{key:"team.name",value:"String(team.id)"}])
+    const [teams, setTeams] = useState<{key: string, value: string}[] | null>(null);
+    const [championships, setChampionships] = useState<{key: string, value: string}[] | null>(null)
     const [ championship, setChampionship ] = useState<string>("");
     const [ team_one_score, setTeam_one_score ] = useState<string>("");
     const [ team_two_score, setTeam_two_score ] = useState<string>("");
-    const [ match_date, setMatch_date ] = useState<string>("");
+    const [ match_date, setMatch_date ] = useState<string>(`${new Date()}`);
     const [ match_time, setMatch_time ] = useState<string>("");
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ error, setError ] = useState<string>("");
@@ -78,7 +92,9 @@ export default function AddMatch() {
     }
 
     const modalBody = <div className={styles.modalBody}>
-        <SelectInput options={teams?teams:null}/>
+        <SelectInput label="اختـر الفريـق الأول" options={teams} setValue={setTeam_one}/>
+        <SelectInput label="اختـر الفريـق الثـاني" options={teams} setValue={setTeam_two}/>
+        <SelectInput label="اختـر البطـولــة" options={championships} setValue={setChampionship}/>
         <TextInput label=" نتيجة المنتخب/الفريق الأول " 
         type="text" 
         value={team_one_score}
@@ -87,8 +103,9 @@ export default function AddMatch() {
         type="text" 
         value={team_two_score}
         setState={setTeam_two_score}/>
+        <input type="date" onChange={(e)=>setMatch_date(e.target.value)}/>
+        <input type="time" onChange={(e)=>setMatch_time(e.target.value)}/>
     </div>;
-    console.log(teams);
     return(
         <>
             <div className={styles.container}>
