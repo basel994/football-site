@@ -40,3 +40,27 @@ export async function GET(request: NextRequest) {
         }
     }
 }
+export async function POST(request: NextRequest) {
+    const formData = await request.formData();
+    const team_one = formData.get("team_one") as string;
+    const team_two = formData.get("team_two") as string;
+    const championship = formData.get("championship") as string;
+    const team_one_score = formData.get("team_one_score") as string;
+    const team_two_score = formData.get("team_two_score") as string;
+    const match_date = formData.get("match_date") as string;
+    const match_time = formData.get("match_time") as string;
+    try {
+        const res = await sql`  
+        INSERT INTO matches(team_one, team_two, championship, team_one_score, team_two_score, match_date, match_time)   
+        VALUES (${parseInt(team_one)}, ${parseInt(team_two)}, ${championship}, ${team_one_score}, ${team_two_score}, ${match_date}, ${match_time})  
+        RETURNING id;  
+      `;
+      if(res.rows.length > 0) {
+        return NextResponse.json({message: "تم إضافة مباراة جديدة بنجــاح"});
+      }
+      return NextResponse.json({error: "لم تتم الإضافــة"});
+    } catch ( error ) {
+        console.log( error );
+        return NextResponse.json({error: "جدث خطـأ أثناء الإضافة! حـاول مجدداً"});
+    }
+}

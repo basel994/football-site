@@ -43,3 +43,9 @@
     justify-content: center;
     align-items: center;
 }
+@media screen and ( max-width: 600px) {
+    .container {
+        left: 1rem;
+        top: 0rem;
+    }
+}

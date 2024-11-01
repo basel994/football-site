@@ -2,6 +2,20 @@ import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
 import cloudinary from "cloudinary";
 
+export async function GET( request: NextRequest, { params }: { params: Promise<{ id: string }>}) {
+    const headers = request.headers;
+    headers.get("Content-Type");
+    const id = (await params).id
+    try {
+        const getTeamsQuery = await sql `
+        SELECT * FROM teams WHERE id = ${parseInt(id)}
+        `;
+        return NextResponse.json({data: getTeamsQuery.rows[0]});
+    } catch( error ) {
+        console.log( error );
+        return NextResponse.json({error: "فشل في تحميـل بيانات المنتخب/الفريق! الرجــاء المحاولة لاحقـاً."})
+    }
+}
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {  
     const id = (await params).id;   
     const formData = await request.formData();

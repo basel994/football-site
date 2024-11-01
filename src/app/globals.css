@@ -66,4 +66,7 @@ button {
   h3 {
     font-size: 0.8rem;
   }
+  .content {
+    padding: 2rem 0.5rem;
+  }
 }
