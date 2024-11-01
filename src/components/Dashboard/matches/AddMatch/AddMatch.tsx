@@ -4,10 +4,10 @@ import styles from "./addMatch.module.css";
 import { useEffect, useState } from "react";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import { useRouter } from "next/navigation";
-import { addNewTeam } from "@/apiFetching/teams/addNewTeam";
 import { teamsFetch } from "@/apiFetching/teams/teamsFetch";
 import SelectInput from "@/components/Form/SelectInput/SelectInput";
 import { championshipsFetch } from "@/apiFetching/championships/championshipsFetch";
+import { addNewMatch } from "@/apiFetching/matches/addNewMatch";
 
 export default function AddMatch() {
     useEffect(() => {
@@ -76,7 +76,7 @@ export default function AddMatch() {
             formData.append("team_two_score", team_two_score);
             formData.append("match_date", match_date);
             formData.append("match_time", match_time);
-            const callAddFun = await addNewTeam(formData);
+            const callAddFun = await addNewMatch(formData);
             if(callAddFun.error) {
                 setLoading(false);
                 setMessage("");
