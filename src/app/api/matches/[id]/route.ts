@@ -10,7 +10,6 @@ export async function PATCH(request: NextRequest, {params}: {params: Promise<{id
     const team_one_score = formData.get("team_one_score") as string;
     const team_two_score = formData.get("team_two_score") as string;
     const match_date = formData.get("match_date") as string;
-    const match_time = formData.get("match_time") as string;
     try {
         const res = await sql`  
         UPDATE matches
@@ -19,8 +18,7 @@ export async function PATCH(request: NextRequest, {params}: {params: Promise<{id
         championship = ${championship},
         team_one_score = ${team_one_score}, 
         team_two_score = ${team_two_score}, 
-        match_date = ${match_date}, 
-        match_time = ${match_time} 
+        match_date = ${match_date},  
         WHERE id = ${parseInt(id)}
         RETURNING *
       `;
@@ -39,7 +37,7 @@ export async function DELETE(request: NextRequest, {params}: {params: Promise<{i
     const id = (await params).id;
     try {
         const deleteMatch = await sql `
-        DELETE FROM teams WHERE id = ${parseInt(id)} RETURNING id
+        DELETE FROM matches WHERE id = ${parseInt(id)} RETURNING id
         `;
         if(deleteMatch.rows.length > 0) {
             return NextResponse.json({message: "تم حـذف المباراة بنجـاح"});

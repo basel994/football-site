@@ -11,7 +11,7 @@ export default async function MatchesShow() {
             {
                 !getMatches.data ? 
                 <p className={syles.error}>{getMatches.error}</p> : 
-                <MatchesTable teamsData={getMatches.data} />
+                <MatchesTable matchesData={getMatches.data} />
             }
         </div>
     );

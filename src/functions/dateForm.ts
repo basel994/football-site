@@ -7,7 +7,7 @@ export function dateForm(date: Date): StringDateType {
     const stringTime = `
     ${toDate.getMinutes()} : 
     ${toDate.getHours()} 
-    ${toDate.getHours() < 12 ? "AM" : "PM"}
+    ${toDate.getHours() < 12 ? "ص" : "م"}
     `;
     const today = new Date();
     const yesterday = new Date(today);
@@ -34,7 +34,7 @@ export function dateForm(date: Date): StringDateType {
     }
     else {
         return {
-            stringDate: `${toDate.getDay()} / ${toDate.getMonth()} / ${toDate.getFullYear()}`, 
+            stringDate: `${toDate.getDate()} / ${toDate.getMonth()+1} / ${toDate.getFullYear()}`, 
             stringTime: stringTime, 
         };
     }

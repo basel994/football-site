@@ -8,6 +8,7 @@ import { teamsFetch } from "@/apiFetching/teams/teamsFetch";
 import SelectInput from "@/components/Form/SelectInput/SelectInput";
 import { championshipsFetch } from "@/apiFetching/championships/championshipsFetch";
 import { addNewMatch } from "@/apiFetching/matches/addNewMatch";
+import DateInput from "@/components/Form/DateInput/DateInput";
 
 export default function AddMatch() {
     useEffect(() => {
@@ -30,7 +31,7 @@ export default function AddMatch() {
             }
             else {
                 const championsMapped = callAddFun.data?.map((champion) => 
-                ({key: champion.name, value: String(champion.id)}));
+                ({key: champion.name, value: champion.name}));
                 if(championsMapped)
                 setChampionships(championsMapped);
             }
@@ -48,7 +49,6 @@ export default function AddMatch() {
     const [ team_one_score, setTeam_one_score ] = useState<string>("");
     const [ team_two_score, setTeam_two_score ] = useState<string>("");
     const [ match_date, setMatch_date ] = useState<string>(`${new Date()}`);
-    const [ match_time, setMatch_time ] = useState<string>("");
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ error, setError ] = useState<string>("");
     const [ message, setMessage ] = useState<string>("");
@@ -60,10 +60,9 @@ export default function AddMatch() {
         setTeam_two("");
         setChampionship("");
         setMatch_date("");
-        setMatch_time("");
     }
     const onOk = async () => {
-        if(!team_one || !team_two || !championship || !match_date || !match_time) {
+        if(!team_one || !team_two || !championship || !match_date) {
             setError("جميـع الحقـول مطلوبـة");
         }
         else {
@@ -75,7 +74,6 @@ export default function AddMatch() {
             formData.append("team_one_score", team_one_score);
             formData.append("team_two_score", team_two_score);
             formData.append("match_date", match_date);
-            formData.append("match_time", match_time);
             const callAddFun = await addNewMatch(formData);
             if(callAddFun.error) {
                 setLoading(false);
@@ -103,9 +101,9 @@ export default function AddMatch() {
         type="text" 
         value={team_two_score}
         setState={setTeam_two_score}/>
-        <input type="date" onChange={(e)=>setMatch_date(e.target.value)}/>
-        <input type="time" onChange={(e)=>setMatch_time(e.target.value)}/>
+        <DateInput label="ادخل التاريخ والوقت" setValue={setMatch_date} />
     </div>;
+    console.log(match_date);
     return(
         <>
             <div className={styles.container}>
