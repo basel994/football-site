@@ -18,7 +18,7 @@ export async function PATCH(request: NextRequest, {params}: {params: Promise<{id
         championship = ${championship},
         team_one_score = ${team_one_score}, 
         team_two_score = ${team_two_score}, 
-        match_date = ${match_date},  
+        match_date = ${match_date} 
         WHERE id = ${parseInt(id)}
         RETURNING *
       `;
