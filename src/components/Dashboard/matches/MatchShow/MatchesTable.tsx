@@ -4,6 +4,7 @@ import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
 import MatchUpdate from "./MatchMutation/MatchUpdate";
 import MatchDelete from "./MatchMutation/MatchDelete";
 import { dateForm } from "@/functions/dateForm";
+import MatchFixing from "./MatchMutation/MatchFixing";
 
 export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) {
     const getTeamName = async (id: string) => {
@@ -33,6 +34,7 @@ export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) 
                     <th><p>التاريخ</p></th>
                     <th><p>التوقيت</p></th>
                     <th><p>تعديـل</p></th>
+                    <th><p>تثبيت</p></th>
                     <th><p>حــذف</p></th>
                 </tr>
             </thead>
@@ -54,6 +56,9 @@ export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) 
                                 <td><p>{match_date.stringTime}</p></td>
                                 <td>
                                     <MatchUpdate matcObject={matcObject} />
+                                </td>
+                                <td>
+                                    <MatchFixing matchObject={matcObject}/>
                                 </td>
                                 <td>
                                     <MatchDelete id={String(matcObject.id)}/>

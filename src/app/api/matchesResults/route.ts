@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     if(date) {
         try {
             const getDatedMatchesQuery = await sql `
-            SELECT * FROM matches WHERE match_date::date = ${date} 
+            SELECT * FROM matchesResults WHERE match_date::date = ${date} 
             `;
             return NextResponse.json({data: getDatedMatchesQuery.rows});
         } catch(error) {
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     else {
         try {
             const getMatchesQuery = await sql `
-            SELECT * FROM matches 
+            SELECT * FROM matchesResults 
             `;
             return NextResponse.json({data: getMatchesQuery.rows});
         } catch(error) {
@@ -37,8 +37,8 @@ export async function POST(request: NextRequest) {
     const match_date = formData.get("match_date") as string;
     try {
         const res = await sql`  
-        INSERT INTO matches(team_one, team_two, championship, team_one_score, team_two_score, match_date)   
-        VALUES (${parseInt(team_one)}, ${parseInt(team_two)}, ${championship}, ${team_one_score ? team_one_score : null}, ${team_two_score ? team_two_score : null}, ${match_date})  
+        INSERT INTO matchesResults(team_one, team_two, championship, team_one_score, team_two_score, match_date)   
+        VALUES (${parseInt(team_one)}, ${parseInt(team_two)}, ${championship}, ${team_one_score}, ${team_two_score}, ${match_date})  
         RETURNING id;  
       `;
       if(res.rows.length > 0) {
