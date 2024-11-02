@@ -35,7 +35,7 @@ export default function MatchFixing({matchObject}: {matchObject: MatchType}) {
     }
     return(
         <div>
-            <CustomButton title="تثبيـت" 
+            <CustomButton title={`${loading ? "جار التثبيت" : "تثبيت"}`} 
             bg="rgb(8, 92, 92)" 
             color="white" 
             clicked={fixClicked}/>

@@ -4,7 +4,7 @@ import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
 import Image from "next/image";
 import { dateForm } from "@/functions/dateForm";
 
-export default async function({matchObject}: {matchObject: MatchType}) {
+export default async function Match({matchObject}: {matchObject: MatchType}) {
     const getTeam = async (id: string) => {
         const callFun = await teamsFetchById(id);
         return callFun.data;
