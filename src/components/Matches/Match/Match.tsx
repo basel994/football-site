@@ -4,21 +4,23 @@ import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
 import Image from "next/image";
 import { dateForm } from "@/functions/dateForm";
 
-export default async function Match({matchObject}: {matchObject: MatchType}) {
+export default async function Match({matchObject, state}: {matchObject: MatchType; state?: string}) {
     const getTeam = async (id: string) => {
         const callFun = await teamsFetchById(id);
         return callFun.data;
     }
     const team_one = await getTeam(matchObject.team_one);
     const team_two = await getTeam(matchObject.team_two);
-    const time = new Date();
-    const date = dateForm(new Date(matchObject.match_date));
-    let status = date.stringTime;
-    if (time < new Date(matchObject.match_date)) {
-        status = date.stringTime;
-    }
-    else {
-        status = "جاريـة الآن";
+    let status = state;
+    if(!state) {
+        const time = new Date();
+        const date = dateForm(new Date(matchObject.match_date));
+        if (time < new Date(matchObject.match_date)) {
+            status = date.stringTime;
+        }
+        else {
+            status = "جاريـة الآن";
+        }
     }
     return(
         <div className={styles.container}>

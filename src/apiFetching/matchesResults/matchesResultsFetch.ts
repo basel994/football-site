@@ -4,11 +4,11 @@ type ApiResponse = {
     error?: string;
     data?: MatchType[] | [];
 };
-export const matchesFetch = async (date?: string): Promise<ApiResponse> => {
+export const matchesResultsFetch = async (date?: string): Promise<ApiResponse> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
-    let urlFetched = `${baseUrl}/api/matches`;
+    let urlFetched = `${baseUrl}/api/matchesResults`;
     if(date) {
-        urlFetched = `${baseUrl}/api/matches?date=${date}`;
+        urlFetched = `${baseUrl}/api/matchesResults?date=${date}`;
     }
     try {
         const apiFetch = await fetch(urlFetched, {cache: "no-store"});
