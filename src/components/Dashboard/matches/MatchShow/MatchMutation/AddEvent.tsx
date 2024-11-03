@@ -22,13 +22,13 @@ export default function AddEvent({
         const fetchTeam_one = async () => {
             const first = await getTeamName(String(team_one));
             if(first) {
-                setTeams([...teams,{key: first, value: String(team_one)}]);
+                teams.push({key: first, value: String(team_one)});
             }
         }
         const fetchTeam_two = async () => {
             const second = await getTeamName(String(team_two));
             if(second) {
-                setTeams([...teams,{key: second, value: String(team_two)}]);
+                teams.push({key: second, value: String(team_two)});
             }
         }
         fetchTeam_one();
