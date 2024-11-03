@@ -22,38 +22,35 @@ export default async function Match({matchObject, state}: {matchObject: MatchTyp
             status = "جاريـة الآن";
         }
     }
+    const result_one = matchObject.team_one_score;
+    const result_two = matchObject.team_two_score;
     return(
-        <div className={styles.container}>
-            <div className={styles.champion}>
-                <p>{matchObject.championship}</p>
-            </div>
             <div className={styles.match}>
                 <div className={styles.team}>
                     {
                         team_one && <div className={styles.teamDetails}>
-                            <p>{team_one.name}</p>
                             <Image src={team_one.logo} 
                             alt="" 
                             width={40} 
                             height={40} />
+                            <p>{team_one.name}</p>
                         </div>
                     }
-                    <p>{matchObject.team_one_score !== null ? matchObject.team_one_score : "__"}</p>
+                    <p className={result_one > result_two ? styles.win : (result_one === result_two ? styles.equal : styles.fail)}>{result_one !== null ? result_one : "__"}</p>
                 </div>
                 <div className={styles.status}><p>{status}</p></div>
                 <div className={styles.team}>
                 {
                         team_two && <div className={styles.teamDetails}>
-                            <p>{team_two.name}</p>
                             <Image src={team_two.logo} 
                             alt="" 
                             width={40} 
                             height={40} />
+                            <p>{team_two.name}</p>
                         </div>
                     }
-                    <p>{matchObject.team_two_score !== null ? matchObject.team_two_score : "__"}</p>
+                    <p className={result_two > result_one ? styles.win : (result_two === result_one ? styles.equal : styles.fail)}>{result_two !== null ? result_two : "__"}</p>
                 </div>
             </div>
-        </div>
     );
 }
