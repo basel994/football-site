@@ -31,9 +31,9 @@ export default async function Matches() {
         <div className={styles.container}>
             {
                 !getTodayMatchesResults.data ? <p className={styles.error}>{getTodayMatchesResults.error}</p> :
-                groupMatchesByChampion(getTodayMatchesResults.data).map((match) => {
+                groupMatchesByChampion(getTodayMatchesResults.data).map((match, index) => {
                     return(
-                        <div className={styles.championContainer}>
+                        <div className={styles.championContainer} key={index}>
                             <div className={styles.champion}><p>{match.champion}</p></div>
                             {
                                 match.matches.map((match) => {
@@ -48,9 +48,9 @@ export default async function Matches() {
             }
             {
                 !getTodayMatches.data ? <p className={styles.error}>{getTodayMatches.error}</p> :
-                groupMatchesByChampion(getTodayMatches.data).map((match) => {
+                groupMatchesByChampion(getTodayMatches.data).map((match, index) => {
                     return(
-                        <div className={styles.championContainer}>
+                        <div className={styles.championContainer} key={index}>
                             <div className={styles.champion}><p>{match.champion}</p></div>
                             {
                                 match.matches.map((match) => {
