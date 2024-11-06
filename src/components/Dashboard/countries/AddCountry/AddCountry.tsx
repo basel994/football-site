@@ -1,6 +1,6 @@
 "use client"
 import CustomModal from "@/components/CustomModal/CustomModal";
-import styles from "./addChampion.module.css";
+import styles from "./addCountry.module.css";
 import { useState } from "react";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import FileInput from "@/components/Form/FileInput/FileInput";
