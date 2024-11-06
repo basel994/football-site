@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
         const addCountryQuery = await sql `
         INSERT INTO countries 
         (name, logo) 
-        Values (${name}, ${uploadResult.secure_url}) 
+        VALUES (${name}, ${uploadResult.secure_url}) 
         RETURNING id
         `;
         if(addCountryQuery.rows.length > 0) {
