@@ -1,4 +1,4 @@
-import styles from "./championshipsShow.module.css";
+import styles from "./countriesShow.module.css";
 import Image from "next/image";
 import CountryDelete from "./CountryMutation/CountryDelete";
 import { CountryType } from "@/types/countryType";
