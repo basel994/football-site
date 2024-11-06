@@ -1,12 +1,12 @@
 import PageHeader from "@/components/PageHeader/PageHeader";
 import styles from "./page.module.css";
-import ChampionshipsShow from "@/components/Dashboard/Championships/ChampionshipsShow/ChampionshipsShow";
+import CountriesShow from "@/components/Dashboard/countries/CountriesShow/CountriesShow";
 
 export default function Page() {
     return(
         <div className={styles.page}>
             <PageHeader title="المنتخبـات" />
-            <ChampionshipsShow />
+            <CountriesShow />
         </div>
     );
 }

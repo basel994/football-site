@@ -3,7 +3,7 @@ import CountriesTable from "./CountriesTable";
 import AddCountry from "../AddCountry/AddCountry";
 import { getCountries } from "@/apiFetching/countries/getCountries";
 
-export default async function ChampionshipsShow() {
+export default async function CountriesShow() {
     const getCountriesFun = await getCountries();
     return(
         <div className={syles.container}>
