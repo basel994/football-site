@@ -5,7 +5,7 @@ type ApiResponse = {
 export async function addCountry(formData: FormData): Promise<ApiResponse> {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     try {
-        const callApi = await fetch(`${baseUrl}/countries`, {
+        const callApi = await fetch(`${baseUrl}/api/countries`, {
             method: "POST",
             body: formData,
         });
