@@ -28,7 +28,7 @@ export default function TeamUpdate({teamObject}: {teamObject: TeamType}) {
     const [visible, setVisible] = useState<boolean>(false);
     const [ newName, setNewName ] = useState<string>(teamObject.name);
     const [countries, setCountries] = useState<{key: string, value: string | number}[]>([]);
-    const [ newCountry, setNewCountry ] = useState<number>(teamObject.country);
+    const [ newCountry, setNewCountry ] = useState<string>(String(teamObject.country));
     const [ newFounded, setNewFounded ] = useState<string>(String(teamObject.founded_at));
     const [ newCoach, setNewCoach ] = useState<string>(teamObject.coach);
     const [ newLogo, setNewLogo ] = useState<File | null>(null);
@@ -84,7 +84,7 @@ export default function TeamUpdate({teamObject}: {teamObject: TeamType}) {
     const updateClicked = () => {
         setVisible(true);
         setNewName(teamObject.name);
-        setNewCountry(teamObject.country);
+        setNewCountry(String(teamObject.country));
         setNewFounded(String(teamObject.founded_at));
         setNewCoach(teamObject.coach);
         setNewLogo(null);

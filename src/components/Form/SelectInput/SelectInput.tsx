@@ -8,7 +8,7 @@ export default function SelectInput({
         label: string;
         options: {key: string, value: string | number}[]|null;
         value?: string | number;
-        setValue: (value: any) => void;
+        setValue: (value: string) => void;
     }) {
         const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
             setValue(e.target.value);

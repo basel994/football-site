@@ -26,7 +26,7 @@ export default function AddTeam() {
     const [ visible, setVisible ] = useState<boolean>(false);
     const [ name, setName ] = useState<string>("");
     const [countries, setCountries] = useState<{key: string, value: string | number}[]>([]);
-    const [ country, setCountry ] = useState<number | null>(null);
+    const [ country, setCountry ] = useState<string>("");
     const [ founded_at, setFounded_at ] = useState<string>("");
     const [ coach, setCoach ] = useState<string>("");
     const [ logo, setLogo ] = useState<File | null>(null);
