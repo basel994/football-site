@@ -38,6 +38,8 @@ export default function AddTeam() {
         setError("");
         setMessage("");
         setName("");
+        setFounded_at("");
+        setCoach("");
         setLogo(null);
     }
     const onOk = async () => {
