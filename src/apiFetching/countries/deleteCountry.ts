@@ -5,7 +5,7 @@ type ApiResponse = {
 export async function deleteCountry(id: number): Promise<ApiResponse> {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     try {
-        const callApi = await fetch(`${baseUrl}/countries/${id}`, {
+        const callApi = await fetch(`${baseUrl}/api/countries/${id}`, {
             method: "DELETE",
         });
         if(callApi.ok) {
