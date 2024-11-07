@@ -40,8 +40,8 @@ export default function AddMatch() {
     }, []);
     const router = useRouter();
     const [ visible, setVisible ] = useState<boolean>(false);
-    const [ team_one, setTeam_one ] = useState<number>();
-    const [ team_two, setTeam_two ] = useState<number>();
+    const [ team_one, setTeam_one ] = useState<string | null>(null);
+    const [ team_two, setTeam_two ] = useState<string | null>(null);
     const [teams, setTeams] = useState<{key: string, value: string}[] | null>(null);
     const [championships, setChampionships] = useState<{key: string, value: string}[] | null>(null);
     const [ championship, setChampionship ] = useState<string>("");
@@ -62,12 +62,15 @@ export default function AddMatch() {
         {key: "تأجلت", value: "postponed"}, 
         {key: "ألغيت", value: "cancelled"}, 
     ]
+    console.log(status);
+    console.log(statusArray);
     const onAddClicked = () => {
         setVisible(true);
         setError("");
         setMessage("");
         setChampionship("");
         setMatch_date("");
+        setStatus("");
     }
     const onOk = async () => {
         if(!team_one || !team_two || !championship || !match_date) {
