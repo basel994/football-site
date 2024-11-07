@@ -54,7 +54,12 @@ export default function AddEvent({
         {key: "أهـداف", value: "goal"}, 
         {key: "كـروت صفـراء", value: "yellow_card"}, 
         {key: "كـروت حمـراء", value: "red_card"}, 
-    ]
+    ];
+    console.log(team);
+    console.log(event);
+    console.log(player);
+    console.log(champion);
+    console.log(match);
     const modalBody = <div className={styles.modalBody}>
         <SelectInput label="اختر حـدث" options={events} setValue={setEvent} />
         <SelectInput label="اختر الفريق" options={teams} setValue={setTeam} />
