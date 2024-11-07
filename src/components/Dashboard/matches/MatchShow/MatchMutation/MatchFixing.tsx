@@ -13,11 +13,9 @@ export default function MatchFixing({matchObject}: {matchObject: MatchType}) {
     const fixClicked = async() => {
         setLoading(true);
         const formData = new FormData();
-        formData.append("team_one", matchObject.team_one);
-        formData.append("team_two", matchObject.team_two);
+        formData.append("team_one", String(matchObject.team_one));
+        formData.append("team_two", String(matchObject.team_two));
         formData.append("championship", matchObject.championship);
-        formData.append("team_one_score", String(matchObject.team_one_score));
-        formData.append("team_two_score", String(matchObject.team_two_score));
         formData.append("match_date", matchObject.match_date);
         const fixMatch = await addNewMatch(formData);
         if(!fixMatch.error) {
