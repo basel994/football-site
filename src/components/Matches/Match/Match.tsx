@@ -5,7 +5,7 @@ import Image from "next/image";
 import { dateForm } from "@/functions/dateForm";
 
 export default async function Match({matchObject, state}: {matchObject: MatchType; state?: string}) {
-    const getTeam = async (id: string) => {
+    const getTeam = async (id: number) => {
         const callFun = await teamsFetchById(id);
         return callFun.data;
     }
@@ -22,8 +22,6 @@ export default async function Match({matchObject, state}: {matchObject: MatchTyp
             status = "جاريـة الآن";
         }
     }
-    const result_one = matchObject.team_one_score;
-    const result_two = matchObject.team_two_score;
     return(
             <div className={styles.match}>
                 <div className={styles.team}>
@@ -36,7 +34,7 @@ export default async function Match({matchObject, state}: {matchObject: MatchTyp
                             <p>{team_one.name}</p>
                         </div>
                     }
-                    <p className={result_one > result_two ? styles.win : (result_one === result_two ? styles.equal : styles.fail)}>{result_one !== null ? result_one : "__"}</p>
+                    <p></p>
                 </div>
                 <div className={styles.status}><p>{status}</p></div>
                 <div className={styles.team}>
@@ -49,7 +47,7 @@ export default async function Match({matchObject, state}: {matchObject: MatchTyp
                             <p>{team_two.name}</p>
                         </div>
                     }
-                    <p className={result_two > result_one ? styles.win : (result_two === result_one ? styles.equal : styles.fail)}>{result_two !== null ? result_two : "__"}</p>
+                    <p></p>
                 </div>
             </div>
     );
