@@ -3,6 +3,7 @@ import Image from "next/image";
 import TeamUpdate from "./TeamMutation/TeamUpdate";
 import { TeamType } from "@/types/teamType";
 import TeamDelete from "./TeamMutation/TeamDelete";
+import { getCountryById } from "@/apiFetching/countries/getCountryById";
 
 export default function TeamsTable({teamsData}: {teamsData: TeamType[]}) {
     return(
@@ -21,12 +22,17 @@ export default function TeamsTable({teamsData}: {teamsData: TeamType[]}) {
             </thead>
             <tbody>
                 {
-                    teamsData.map((teamObject, index) => {
+                    teamsData.map(async(teamObject, index) => {
+                        const getCountryName = await getCountryById(teamObject.country);
+                        let countryName = "";
+                        if(getCountryName.data) {
+                            countryName = getCountryName.data.name;
+                        }
                         return(
                             <tr key={teamObject.id}>
                                 <td><p>{index + 1}</p></td>
                                 <td><p>{teamObject.name}</p></td>
-                                <td><p>{teamObject.country}</p></td>
+                                <td><p>{countryName}</p></td>
                                 <td><p>{teamObject.founded_at}</p></td>
                                 <td><p>{teamObject.coach}</p></td>
                                 <td>
@@ -39,7 +45,7 @@ export default function TeamsTable({teamsData}: {teamsData: TeamType[]}) {
                                     <TeamUpdate teamObject={teamObject} />
                                 </td>
                                 <td>
-                                    <TeamDelete id={String(teamObject.id)} name={teamObject.name}/>
+                                    <TeamDelete id={teamObject.id} name={teamObject.name}/>
                                 </td>
                             </tr>
                         );

@@ -5,7 +5,7 @@ import TeamsShow from "@/components/Dashboard/teams/TeamsShow/TeamsShow";
 export default function Page() {
     return(
         <div className={styles.page}>
-            <PageHeader title="المنتخبات/الفرق" />
+            <PageHeader title="الفرق" />
             <TeamsShow />
         </div>
     );

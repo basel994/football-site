@@ -13,7 +13,7 @@ export const addNewTeam = async (formData: FormData): Promise<ApiResponse> => {
             const response: ApiResponse = await apiFetch.json();
             return response;
         }
-        return {error: "فشل في إضافـة منتخب/فريق!"}
+        return {error: "فشل في إضافـة فريق!"}
     } catch( error ) {
         console.log( error );
         return {error: "فشل الاتصــال!"}

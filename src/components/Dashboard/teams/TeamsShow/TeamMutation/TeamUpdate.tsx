@@ -1,19 +1,34 @@
 "use client"
+import { getCountries } from "@/apiFetching/countries/getCountries";
 import styles from "./teamMutation.module.css";
 import { updateTeam } from "@/apiFetching/teams/updateTeam";
 import CustomButton from "@/components/CustomButton/CustomButton";
 import CustomModal from "@/components/CustomModal/CustomModal";
 import FileInput from "@/components/Form/FileInput/FileInput";
+import SelectInput from "@/components/Form/SelectInput/SelectInput";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import { TeamType } from "@/types/teamType";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function TeamUpdate({teamObject}: {teamObject: TeamType}) {
+    useEffect(() => {
+        const getCountriesFun = async() => {
+            const callFun = await getCountries();
+            if(callFun.data) {
+                callFun.data.map((countryObject) => {
+                    setCountries(prev => [...prev, {key: countryObject.name, value: countryObject.id}]);
+                })
+            }
+            else setCountries([]);
+        }
+        getCountriesFun();
+    }, [])
     const router = useRouter();
     const [visible, setVisible] = useState<boolean>(false);
     const [ newName, setNewName ] = useState<string>(teamObject.name);
-    const [ newCountry, setNewCountry ] = useState<string>(teamObject.country);
+    const [countries, setCountries] = useState<{key: string, value: string | number}[]>([]);
+    const [ newCountry, setNewCountry ] = useState<number>(teamObject.country);
     const [ newFounded, setNewFounded ] = useState<string>(String(teamObject.founded_at));
     const [ newCoach, setNewCoach ] = useState<string>(teamObject.coach);
     const [ newLogo, setNewLogo ] = useState<File | null>(null);
@@ -21,14 +36,11 @@ export default function TeamUpdate({teamObject}: {teamObject: TeamType}) {
     const [message, setMessage] = useState<string>("");
     const [error, setError] = useState<string>("");
     const modalBody = <div className={styles.modalBody}>
-        <TextInput label=" اسم المنتخب/الفريق " 
+        <TextInput label=" اسم الفريق " 
         type="text" 
         value={newName}
         setState={setNewName}/>
-        <TextInput label="البلد" 
-        type="text" 
-        value={newCountry}
-        setState={setNewCountry}/>
+        <SelectInput label="اختر البلد" options={countries} value={newCountry} setValue={setNewCountry} />
         <TextInput label="سنة التأسيس" 
         type="text" 
         value={newFounded}
@@ -49,13 +61,13 @@ export default function TeamUpdate({teamObject}: {teamObject: TeamType}) {
             setLoading(true);
             const formData = new FormData();
             formData.append("newName", newName);
-            formData.append("newCountry", newCountry);
+            formData.append("newCountry", String(newCountry));
             formData.append("newFounded", newFounded);
             formData.append("newCoach", newCoach);
             if(newLogo) {
                 formData.append("newLogo", newLogo);
             }
-            const callAddFun = await updateTeam(String(teamObject.id), formData);
+            const callAddFun = await updateTeam(teamObject.id, formData);
             if(callAddFun.error) {
                 setLoading(false);
                 setMessage("");
@@ -87,7 +99,7 @@ export default function TeamUpdate({teamObject}: {teamObject: TeamType}) {
             clicked={updateClicked}/>
             <CustomModal visible={visible} 
             setVisible={setVisible}  
-            title="تعديـل منتخب/فريق" 
+            title="تعديـل فريق" 
             body= {modalBody} 
             onOk={onOk} 
             okButtonName={loading ? "جـارِ التعديـل..." : "تعديـل"}

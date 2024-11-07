@@ -5,14 +5,14 @@ import CustomModal from "@/components/CustomModal/CustomModal";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function TeamDelete({id, name}: {id: string; name: string}) {
+export default function TeamDelete({id, name}: {id: number; name: string}) {
     const router = useRouter();
     const [visible, setVisible] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
     const [error, setError] = useState<string>("");
     const modalBody = <div>
         <h3>
-            {`هل تريـد بالتأكيـد حـذف النتخب/الفريق: ${name} ؟`}
+            {`هل تريـد بالتأكيـد حـذف الفريق: ${name} ؟`}
         </h3>
     </div>
     const onOk = async () => {
@@ -39,7 +39,7 @@ export default function TeamDelete({id, name}: {id: string; name: string}) {
             <CustomModal visible={visible} 
             setVisible={setVisible} 
             warning 
-            title="حــذف منتخب/فريق" 
+            title="حــذف فريق" 
             body= {modalBody} 
             onOk={onOk} 
             message={message} 

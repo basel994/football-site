@@ -13,7 +13,7 @@ export async function GET( request: NextRequest, { params }: { params: Promise<{
         return NextResponse.json({data: getTeamsQuery.rows[0]});
     } catch( error ) {
         console.log( error );
-        return NextResponse.json({error: "فشل في تحميـل بيانات المنتخب/الفريق! الرجــاء المحاولة لاحقـاً."})
+        return NextResponse.json({error: "فشل في تحميـل بيانات الفريق! الرجــاء المحاولة لاحقـاً."})
     }
 }
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {  
@@ -30,17 +30,17 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
             const result = await sql`  
             UPDATE teams
             SET name = ${newName}, 
-            country = ${newCountry}, 
+            country = ${parseInt(newCountry)}, 
             founded_at = ${parseInt(newFounded)}, 
             coach = ${newCoach}
             WHERE id = ${parseInt(id)}  
             RETURNING *  
             `;
             if (result.rows.length === 0) {  
-                return NextResponse.json({ error: "المنتخب/الفريق غـير موجود!" }, { status: 404 });  
+                return NextResponse.json({ error: "الفريق غـير موجود!" }, { status: 404 });  
             }  
     
-            return NextResponse.json({ message: "تم تعديل المنتخب/الفريق بنجـاح" }, { status: 200 }); 
+            return NextResponse.json({ message: "تم تعديل الفريق بنجـاح" }, { status: 200 }); 
         }
         else {
             cloudinary.v2.config({  
@@ -70,7 +70,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
                   const res = await sql`  
                   UPDATE teams
                   SET name = ${newName}, 
-                  country = ${newCountry}, 
+                  country = ${parseInt(newCountry)}, 
                   founded_at = ${parseInt(newFounded)}, 
                   coach = ${newCoach}, 
                   logo = ${uploadResult.secure_url} 
@@ -78,16 +78,16 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
                   RETURNING * 
                   `;  
                   if (res.rows.length === 0) {  
-                    return NextResponse.json({ error: "الفريق/المنتخب غـير موجود!" }, { status: 404 });  
+                    return NextResponse.json({ error: "الفريق غـير موجود!" }, { status: 404 });  
                 }  
         
-                return NextResponse.json({ message: "تم تعديل الفريق/المنتخب بنجـاح" }, { status: 200 });            
+                return NextResponse.json({ message: "تم تعديل الفريق بنجـاح" }, { status: 200 });            
         }  
  
 
     } catch (error) {  
         console.error(error);  
-        return NextResponse.json({ error: "فشل في تعـديل المنتخب/الفريق" }, { status: 500 });  
+        return NextResponse.json({ error: "فشل في تعـديل الفريق" }, { status: 500 });  
     }  
 }
 
@@ -100,13 +100,13 @@ export async function DELETE(request: NextRequest, {params}: {params: Promise<{i
         DELETE FROM teams WHERE id = ${parseInt(id)} RETURNING id
         `;
         if(deleteTeamQuery.rows.length > 0) {
-            return NextResponse.json({message: "تم حـذف المنتخب/الفريق بنجـاح"});
+            return NextResponse.json({message: "تم حـذف الفريق بنجـاح"});
         }
         else {
-            return NextResponse.json({error: "لم يتم حـذف المنتخب/الفريق!"});
+            return NextResponse.json({error: "لم يتم حـذف الفريق!"});
         }
     } catch(error) {
         console.log(error);
-        return NextResponse.json({error: "فشل في حـذف المنتخب/الفريق!"});
+        return NextResponse.json({error: "فشل في حـذف الفريق!"});
     }
 }

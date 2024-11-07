@@ -12,7 +12,7 @@ export const teamsFetch = async (): Promise<ApiResponse> => {
             const response: ApiResponse = await apiFetch.json();
             return response;
         }
-        return {error: "فشل في تحميـل المنتخبات/الفرق!"}
+        return {error: "فشل في تحميـل الفرق!"}
     } catch( error ) {
         console.log( error );
         return {error: "فشل الاتصــال!"}

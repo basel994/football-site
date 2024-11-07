@@ -1,20 +1,35 @@
 "use client"
 import CustomModal from "@/components/CustomModal/CustomModal";
 import styles from "./addTeam.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextInput from "@/components/Form/TextInput/TextInput";
 import FileInput from "@/components/Form/FileInput/FileInput";
 import { useRouter } from "next/navigation";
 import { addNewTeam } from "@/apiFetching/teams/addNewTeam";
+import SelectInput from "@/components/Form/SelectInput/SelectInput";
+import { getCountries } from "@/apiFetching/countries/getCountries";
 
 export default function AddTeam() {
+    useEffect(() => {
+        const getCountriesFun = async() => {
+            const callFun = await getCountries();
+            if(callFun.data) {
+                callFun.data.map((countryObject) => {
+                    setCountries(prev => [...prev, {key: countryObject.name, value: countryObject.id}]);
+                })
+            }
+            else setCountries([]);
+        }
+        getCountriesFun();
+    }, [])
     const router = useRouter();
     const [ visible, setVisible ] = useState<boolean>(false);
     const [ name, setName ] = useState<string>("");
-    const [ country, setCountry ] = useState<string>("");
+    const [countries, setCountries] = useState<{key: string, value: string | number}[]>([]);
+    const [ country, setCountry ] = useState<number | null>(null);
     const [ founded_at, setFounded_at ] = useState<string>("");
     const [ coach, setCoach ] = useState<string>("");
-    const [ logo, setLogo ] = useState<File | null>();
+    const [ logo, setLogo ] = useState<File | null>(null);
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ error, setError ] = useState<string>("");
     const [ message, setMessage ] = useState<string>("");
@@ -33,7 +48,7 @@ export default function AddTeam() {
             setLoading(true);
             const formData = new FormData();
             formData.append("name", name);
-            formData.append("country", country);
+            formData.append("country", String(country));
             formData.append("founded_at", founded_at);
             formData.append("coach", coach);
             formData.append("logo", logo);
@@ -52,14 +67,11 @@ export default function AddTeam() {
         }
     }
     const modalBody = <div className={styles.modalBody}>
-        <TextInput label="أدخـل اسم المنتخب/الفريق" 
+        <TextInput label="أدخـل اسم الفريق" 
         type="text" 
         value={name}
         setState={setName}/>
-        <TextInput label="أدخـل البلد" 
-        type="text" 
-        value={country}
-        setState={setCountry}/>
+        <SelectInput label="اختر البلد" options={countries} setValue={setCountry} />
         <TextInput label="أدخـل سنة التأسيس" 
         type="text" 
         value={founded_at}
@@ -75,12 +87,12 @@ export default function AddTeam() {
     return(
         <>
             <div className={styles.container}>
-                <div className={styles.add} title="إضافة منتخب/فريق جديـد" onClick={onAddClicked}>
+                <div className={styles.add} title="إضافة فريق جديـد" onClick={onAddClicked}>
                     <span></span>
                 </div>
             </div>
             <CustomModal visible={visible} setVisible={setVisible} 
-            title="إضافـة منتخب/فريق جديـد" 
+            title="إضافـة فريق جديـد" 
             body={modalBody} 
             onOk={onOk} 
             message={message} 

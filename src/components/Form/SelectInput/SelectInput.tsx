@@ -6,9 +6,9 @@ export default function SelectInput({
     value, 
     setValue}:{ 
         label: string;
-        options: {key: string, value: string}[]|null;
-        value?: string;
-        setValue: (value: string) => void;
+        options: {key: string, value: string | number}[]|null;
+        value?: string | number;
+        setValue: (value: any) => void;
     }) {
         const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
             setValue(e.target.value);

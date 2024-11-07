@@ -20,7 +20,7 @@ export async function GET( request: NextRequest) {
         return NextResponse.json({data: getTeamsQuery.rows});
     } catch( error ) {
         console.log( error );
-        return NextResponse.json({error: "فشل في تحميـل الفرق/المنتخبات! الرجــاء المحاولة لاحقـاً."})
+        return NextResponse.json({error: "فشل في تحميـل الفرق! الرجــاء المحاولة لاحقـاً."})
     }
 }
 export async function POST(request: NextRequest) {
@@ -49,11 +49,11 @@ export async function POST(request: NextRequest) {
         const uploadResult = await uploadResultPromise;
         const res = await sql`  
         INSERT INTO teams(name, country, founded_at, coach, logo)   
-        VALUES (${name}, ${country}, ${parseInt(founded_at)}, ${coach}, ${uploadResult.secure_url})  
+        VALUES (${name}, ${parseInt(country)}, ${parseInt(founded_at)}, ${coach}, ${uploadResult.secure_url})  
         RETURNING id;  
       `;
       if(res.rows.length > 0) {
-        return NextResponse.json({message: "تم إضافة فريق/منتخب جديد بنجــاح"});
+        return NextResponse.json({message: "تم إضافة فريق جديد بنجــاح"});
       }
       return NextResponse.json({error: "لم تتم الإضافــة"});
     } catch ( error ) {
