@@ -8,10 +8,10 @@ export async function GET(request: NextRequest) {
         const getCountriesQuery = await sql `
         SELECT * FROM countries
         `;
-        return NextResponse.json(getCountriesQuery.rows);
+        return NextResponse.json({data: getCountriesQuery.rows});
     } catch(error) {
         console.log(error);
-        return NextResponse.json({error: "فشل تحميل البلـدان!"})
+        return NextResponse.json({error: "فشل تحميل المنتخبـات!"})
     }
 }
 export async function POST(request: NextRequest) {
@@ -52,13 +52,13 @@ export async function POST(request: NextRequest) {
         RETURNING id
         `;
         if(addCountryQuery.rows.length > 0) {
-            return NextResponse.json({message: "تم إضافة بلد جديد بنجـاح"});
+            return NextResponse.json({message: "تم إضافة منتخـب جديد بنجـاح"});
         }
         else {
             return NextResponse.json({error: "حصل خطـأ أثنـاء الإضـافـة!"});
         }
     } catch(error) {
         console.log(error);
-        return NextResponse.json({error: "فشل في إضافة بلد جديد"});
+        return NextResponse.json({error: "فشل في إضافة منتخـب جديد"});
     }
 }
