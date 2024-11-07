@@ -1,18 +1,25 @@
 "use client"
 import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
 import CustomButton from "@/components/CustomButton/CustomButton";
+import CustomModal from "@/components/CustomModal/CustomModal";
 import SelectInput from "@/components/Form/SelectInput/SelectInput";
+import TextInput from "@/components/Form/TextInput/TextInput";
 import { useEffect, useState } from "react";
+import styles from "./matchMutation.module.css";
 
 export default function AddEvent({
     team_one,
     team_two,
+    champion, 
+    match, 
 }: {
-    team_one: string;
-    team_two: string;
+    team_one: number;
+    team_two: number;
+    champion: string;
+    match: number;
 }) {
     useEffect( () => {
-        const getTeamName = async (id: string) => {
+        const getTeamName = async (id: number) => {
             const callFun = await teamsFetchById(id);
             if(callFun.data) {
                 return callFun.data.name;
@@ -20,13 +27,13 @@ export default function AddEvent({
             else return null
         }
         const fetchTeam_one = async () => {
-            const first = await getTeamName(String(team_one));
+            const first = await getTeamName(team_one);
             if(first) {
                 setTeams(prev => [...prev,{key: first, value: String(team_one)}]);
             }
         }
         const fetchTeam_two = async () => {
-            const second = await getTeamName(String(team_two));
+            const second = await getTeamName(team_two);
             if(second) {
                 setTeams(prev => [...prev,{key: second, value: String(team_two)}]);
             }
@@ -34,13 +41,40 @@ export default function AddEvent({
         fetchTeam_one();
         fetchTeam_two();
     }, [] );
+    const addEventClicked = () => {
+        setVisible(true);
+    }
     const [teams, setTeams] = useState<{key: string, value: string}[]>([]);
-    const [team, setTeam] = useState<string>("");
-    console.log(team);
+    const [team, setTeam] = useState<string | number>("");
+    const [visible, setVisible] = useState<boolean>(false);
+    const [event, setEvent ] = useState<string | number>("");
+    const [eventTime, setEventTime] = useState<string>("");
+    const [player, setPlayer] = useState<string | number>("");
+    const events = [
+        {key: "أهـداف", value: "goal"}, 
+        {key: "كـروت صفـراء", value: "yellow_card"}, 
+        {key: "كـروت حمـراء", value: "red_card"}, 
+    ]
+    const modalBody = <div className={styles.modalBody}>
+        <SelectInput label="اختر حـدث" options={events} setValue={setEvent} />
+        <SelectInput label="اختر الفريق" options={teams} setValue={setTeam} />
+        <SelectInput label="اختر لاعـب" options={teams} setValue={setPlayer} />
+        <TextInput label="أدخـل توقيت الحدث" type="text" value={eventTime} setState={setEventTime} />
+    </div>
     return(
         <>
-            <CustomButton title="إضافة حدث" />
-            <SelectInput label="اختر الفريق" options={teams} setValue={setTeam} />
+            <CustomButton title="إضافة" 
+            bg="rgb(3, 95, 49)" 
+            color="rgb(255, 255, 255)"
+            clicked={addEventClicked}/>
+            <CustomModal  
+            title="إضـافة حـدث" 
+            visible={visible} 
+            setVisible={setVisible} 
+            body={modalBody} 
+            onOk={() => {}}
+
+            />
         </>
     );
 }
