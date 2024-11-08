@@ -1,6 +1,4 @@
 "use client"
-import { deleteMatch } from "@/apiFetching/matches/deleteMatch";
-import { addNewMatch } from "@/apiFetching/matchesResults/addNewMatch";
 import CustomButton from "@/components/CustomButton/CustomButton";
 import SelectInput from "@/components/Form/SelectInput/SelectInput";
 import { useRouter } from "next/navigation";
