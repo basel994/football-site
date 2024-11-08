@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     try {
         const res = await sql`  
         INSERT INTO matches(team_one, team_two, championship, match_date, status)   
-        VALUES (${parseInt(team_one)}, ${parseInt(team_two)}, ${championship}, ${match_date}, "لـم تبدأ بعـد"})  
+        VALUES (${parseInt(team_one)}, ${parseInt(team_two)}, ${championship}, ${match_date}, "لـم تبدأ بعـد")  
         RETURNING id;  
       `;
       if(res.rows.length > 0) {
