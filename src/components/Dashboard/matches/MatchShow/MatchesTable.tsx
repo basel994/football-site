@@ -4,7 +4,7 @@ import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
 import MatchUpdate from "./MatchMutation/MatchUpdate";
 import MatchDelete from "./MatchMutation/MatchDelete";
 import { dateForm } from "@/functions/dateForm";
-import MatchFixing from "./MatchMutation/MatchFixing";
+import MatchStateUpdating from "./MatchMutation/MatchStateUpdating";
 import AddEvent from "./MatchMutation/AddEvent";
 
 export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) {
@@ -79,7 +79,7 @@ export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) 
                                                     champion={matcObject.championship} 
                                                     match={matcObject.id} /> : 
                                                     null}
-                                                    <MatchFixing matchObject={matcObject}/>
+                                                    <MatchStateUpdating matchId={matcObject.id} status={matcObject.status}/>
                                                     <MatchDelete id={String(matcObject.id)}/>
                                                 </div>
                                             </td>
