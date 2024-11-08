@@ -102,6 +102,7 @@ export default function AddMatch() {
         <SelectInput label="اختـر الفريـق الثـاني" options={teams} setValue={setTeam_two}/>
         <SelectInput label="اختـر البطـولــة" options={championships} setValue={setChampionship}/>
         <DateInput label="حـدد التاريخ والوقت" setValue={setMatch_date} />
+        <SelectInput label="حدد حالة المباراة" options={statusArray} setValue={setStatus} />
     </div>;
     console.log(match_date);
     return(
