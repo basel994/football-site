@@ -4,4 +4,5 @@ export type MatchType = {
     team_two: number;
     championship: string;
     match_date: string;
+    status: string;
 }

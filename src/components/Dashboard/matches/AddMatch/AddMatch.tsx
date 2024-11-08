@@ -62,8 +62,6 @@ export default function AddMatch() {
         {key: "تأجلت", value: "postponed"}, 
         {key: "ألغيت", value: "cancelled"}, 
     ]
-    console.log(status);
-    console.log(statusArray);
     const onAddClicked = () => {
         setVisible(true);
         setError("");
@@ -81,8 +79,9 @@ export default function AddMatch() {
             const formData = new FormData();
             formData.append("team_one", String(team_one));
             formData.append("team_two", String(team_two));
-            formData.append("championship", String(championship));
+            formData.append("championship", championship);
             formData.append("match_date", match_date);
+            formData.append("status", status);
             const callAddFun = await addNewMatch(formData);
             if(callAddFun.error) {
                 setLoading(false);

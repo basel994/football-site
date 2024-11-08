@@ -32,13 +32,12 @@ export async function POST(request: NextRequest) {
     const team_one = formData.get("team_one") as string;
     const team_two = formData.get("team_two") as string;
     const championship = formData.get("championship") as string;
-    const team_one_score = formData.get("team_one_score") as string;
-    const team_two_score = formData.get("team_two_score") as string;
     const match_date = formData.get("match_date") as string;
+    const status = formData.get("status") as string;
     try {
         const res = await sql`  
-        INSERT INTO matches(team_one, team_two, championship, team_one_score, team_two_score, match_date)   
-        VALUES (${parseInt(team_one)}, ${parseInt(team_two)}, ${championship}, ${team_one_score ? team_one_score : null}, ${team_two_score ? team_two_score : null}, ${match_date})  
+        INSERT INTO matches(team_one, team_two, championship, match_date, status)   
+        VALUES (${parseInt(team_one)}, ${parseInt(team_two)}, ${championship}, ${match_date}, ${status})  
         RETURNING id;  
       `;
       if(res.rows.length > 0) {
