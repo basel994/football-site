@@ -1,7 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
+export async function PATCH(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
     const {status} = await request.json();
     const id = (await params).id;
     const intId = parseInt(id);
