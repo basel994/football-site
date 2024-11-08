@@ -8,7 +8,6 @@ import SelectInput from "@/components/Form/SelectInput/SelectInput";
 import { championshipsFetch } from "@/apiFetching/championships/championshipsFetch";
 import { addNewMatch } from "@/apiFetching/matches/addNewMatch";
 import DateInput from "@/components/Form/DateInput/DateInput";
-
 export default function AddMatch() {
     useEffect(() => {
         const getTeams = async () => {
@@ -46,29 +45,16 @@ export default function AddMatch() {
     const [championships, setChampionships] = useState<{key: string, value: string}[] | null>(null);
     const [ championship, setChampionship ] = useState<string>("");
     const [ match_date, setMatch_date ] = useState<string>(`${new Date()}`);
-    const [status, setStatus] = useState<string>("لـم تبدأ بعـد");
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ error, setError ] = useState<string>("");
     const [ message, setMessage ] = useState<string>("");
-    const statusArray = [
-        {key: "لـم تبدأ بعـد", value: "not_start"}, 
-        {key: "الشوط الأول", value: "first"}, 
-        {key: "استراحـة", value: "break"}, 
-        {key: "الشوط الثـاني", value: "second"}, 
-        {key: "شوط إضافي أول", value: "extra_one"}, 
-        {key: "شوط إضافي ثاني", value: "extra_two"}, 
-        {key: "ركلات الترجيح", value: "penalty"}, 
-        {key: "انتهـت", value: "finish"}, 
-        {key: "تأجلت", value: "postponed"}, 
-        {key: "ألغيت", value: "cancelled"}, 
-    ]
+
     const onAddClicked = () => {
         setVisible(true);
         setError("");
         setMessage("");
         setChampionship("");
         setMatch_date("");
-        setStatus("");
     }
     const onOk = async () => {
         if(!team_one || !team_two || !championship || !match_date) {
@@ -81,7 +67,6 @@ export default function AddMatch() {
             formData.append("team_two", String(team_two));
             formData.append("championship", championship);
             formData.append("match_date", match_date);
-            formData.append("status", status);
             const callAddFun = await addNewMatch(formData);
             if(callAddFun.error) {
                 setLoading(false);
@@ -102,7 +87,6 @@ export default function AddMatch() {
         <SelectInput label="اختـر الفريـق الثـاني" options={teams} setValue={setTeam_two}/>
         <SelectInput label="اختـر البطـولــة" options={championships} setValue={setChampionship}/>
         <DateInput label="حـدد التاريخ والوقت" setValue={setMatch_date} />
-        <SelectInput label="حدد حالة المباراة" options={statusArray} setValue={setStatus} />
     </div>;
     console.log(match_date);
     return(

@@ -33,8 +33,7 @@ export default function MatchDelete({id}: {id: string;}) {
     return(
         <>
             <CustomButton title="حــذف" 
-            bg="red" 
-            color="white" 
+            bg="rgb(230, 174, 174)" 
             clicked={deleteClicked}/>
             <CustomModal visible={visible} 
             setVisible={setVisible} 

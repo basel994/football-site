@@ -33,11 +33,10 @@ export async function POST(request: NextRequest) {
     const team_two = formData.get("team_two") as string;
     const championship = formData.get("championship") as string;
     const match_date = formData.get("match_date") as string;
-    const status = formData.get("status") as string;
     try {
         const res = await sql`  
         INSERT INTO matches(team_one, team_two, championship, match_date, status)   
-        VALUES (${parseInt(team_one)}, ${parseInt(team_two)}, ${championship}, ${match_date}, ${status})  
+        VALUES (${parseInt(team_one)}, ${parseInt(team_two)}, ${championship}, ${match_date}, "لـم تبدأ بعـد"})  
         RETURNING id;  
       `;
       if(res.rows.length > 0) {

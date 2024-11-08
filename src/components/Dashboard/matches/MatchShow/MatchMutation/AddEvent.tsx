@@ -68,9 +68,8 @@ export default function AddEvent({
     </div>
     return(
         <>
-            <CustomButton title="إضافة" 
-            bg="rgb(3, 95, 49)" 
-            color="rgb(255, 255, 255)"
+            <CustomButton title="إضافة حدث" 
+            bg="rgb(167, 167, 243)" 
             clicked={addEventClicked}/>
             <CustomModal  
             title="إضـافة حـدث" 
