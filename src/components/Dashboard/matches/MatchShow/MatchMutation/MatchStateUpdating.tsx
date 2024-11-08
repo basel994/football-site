@@ -24,10 +24,12 @@ export default function MatchStateUpdating({matchId, status}: {matchId: number, 
         setLoading(true);
         const statusUpdate = await updateStatus(matchId, newStatus);
         if(statusUpdate.error) {
+            setLoading(false);
             setMessage("");
             setError(statusUpdate.error);
         }
         else {
+            setLoading(false);
             setError("");
             setMessage(statusUpdate.message!);
             router.refresh();
