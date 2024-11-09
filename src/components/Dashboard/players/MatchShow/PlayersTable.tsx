@@ -65,7 +65,7 @@ export default function PlayersTable({playersData}: {playersData: PlayerType[]})
                                             <>
                                             <tr className={styles.match}>
                                             <td><p>{plyerObject.name}</p></td>
-                                            <td><p>{getTeamName(plyerObject.team)}</p></td>
+                                            <td><p>{await getTeamName(plyerObject.team)}</p></td>
                                             <td><p>{plyerObject.age}</p></td>
                                             <td><p>{plyerObject.role}</p></td>
                                             <td><Image src={plyerObject.image} 
