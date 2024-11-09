@@ -70,6 +70,7 @@ export default function AddEvent({
             }
             else setPlayers([]);
         }
+        playersByTeam();
     },[team]);
     const events = [
         {key: "أهـداف", value: "goal"}, 
