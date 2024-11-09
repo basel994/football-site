@@ -37,10 +37,10 @@ export default function PlayersTable({playersData}: {playersData: PlayerType[]})
         const countryMap: { [key: string]: PlayerType[] } = {};  
     
         players.forEach(player => {  
-            if (!countryMap[player.country]) {  
-                countryMap[player.country] = [];  
+            if (!countryMap[String(player.country)]) {  
+                countryMap[String(player.country)] = [];  
             }  
-            countryMap[player.country].push(player);  
+            countryMap[String(player.country)].push(player);  
         });  
     
         return Object.keys(countryMap).map(country => ({  
