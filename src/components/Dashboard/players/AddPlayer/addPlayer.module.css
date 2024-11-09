@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    top: 1rem;
+    right: auto;
+    left: auto;
+}
+.add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 1.5rem;
+}
+.add span {
+    position: relative;
+    background-color: rgb(17, 112, 112);
+    width: 1.5rem;
+    height: 0.2rem;
+}
+.add span::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(17, 112, 112);
+    transform: rotate(90deg);
+}
+.error {
+    color: var(--errorColor);
+}
+.success {
+    color: var(--successColor);
+}
+.modalBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+@media screen and ( max-width: 600px) {
+    .container {
+        left: 1rem;
+        top: 0rem;
+    }
+}
