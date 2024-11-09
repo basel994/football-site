@@ -5,7 +5,7 @@ type ApiResponse = {
 export async function addRedCard(body: {champion: string, match_id: number, player_id: number, minute: number}): Promise<ApiResponse> {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     try {
-        const callApi = await fetch(`${baseUrl}/redCards`, {
+        const callApi = await fetch(`${baseUrl}/api/redCards`, {
             method: "POST",
             body: JSON.stringify(body),
         });

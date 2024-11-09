@@ -5,7 +5,7 @@ type ApiResponse = {
 export async function deleteRedCard(id: number): Promise<ApiResponse> {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     try {
-        const callApi = await fetch(`${baseUrl}/redCards/${id}`, {
+        const callApi = await fetch(`${baseUrl}/api/redCards/${id}`, {
             method: "DELETE",
         });
         if(callApi.ok) {
