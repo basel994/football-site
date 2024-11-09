@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
     headers.get("Content-Type");
     try {
         const getPlayersQuery = await sql `
-        SELECT * FROM countries
+        SELECT * FROM players
         `;
         return NextResponse.json({data: getPlayersQuery.rows});
     } catch(error) {

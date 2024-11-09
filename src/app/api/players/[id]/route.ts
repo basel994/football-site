@@ -105,7 +105,7 @@ export async function DELETE(request: NextRequest, {params}: {params: Promise<{i
     headers.get("Content-Type");
     try {
         const deletePlayerQuery = await sql `
-        DELETE FROM countries 
+        DELETE FROM players 
         WHERE id = ${intId} 
         RETURNING id
         `;
