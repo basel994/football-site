@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
         const getPlayersQuery = await sql `
         SELECT * FROM countries
         `;
-        return NextResponse.json(getPlayersQuery.rows);
+        return NextResponse.json({data: getPlayersQuery.rows});
     } catch(error) {
         console.log(error);
         return NextResponse.json({error: "فشل تحميل اللاعبـين!"})
