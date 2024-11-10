@@ -65,6 +65,7 @@ export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) 
                                         const team_two = await getTeamName(matcObject.team_two);
                                         const match_date = getDateForm(matcObject.match_date);
                                         const goals = await goalsGet(matcObject.id);
+                                        console.log(goals);
                                         return(
                                             <>
                                             <tr className={styles.match}>
