@@ -6,6 +6,8 @@ import MatchDelete from "./MatchMutation/MatchDelete";
 import { dateForm } from "@/functions/dateForm";
 import MatchStateUpdating from "./MatchMutation/MatchStateUpdating";
 import AddEvent from "./MatchMutation/AddEvent";
+import { getGoalsByMatch } from "@/apiFetching/goals/getGoalsByMatch";
+import Link from "next/link";
 
 export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) {
     const getTeamName = async (id: number) => {
@@ -41,6 +43,11 @@ export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) 
             matches: championMap[champion]  
         }));  
     }; 
+    const goalsGet = async (match_id: number) => {
+        const callFun = await getGoalsByMatch(match_id);
+        if(callFun.data) return callFun.data;
+        else return null;
+    }
     return(
         <div className={styles.matchesShow}>
                 {
@@ -57,6 +64,7 @@ export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) 
                                         const team_one = await getTeamName(matcObject.team_one);
                                         const team_two = await getTeamName(matcObject.team_two);
                                         const match_date = getDateForm(matcObject.match_date);
+                                        const goals = await goalsGet(matcObject.id);
                                         return(
                                             <>
                                             <tr className={styles.match}>
@@ -65,6 +73,7 @@ export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) 
                                             <td><p>{match_date.stringDate}</p></td>
                                             <td><p>{match_date.stringTime}</p></td>
                                             <td><p>{matcObject.status}</p></td>
+                                            <td><Link href={`/dashboard/matches/${matcObject.id}`} >صفحة المباراة</Link></td>
                                         </tr>
                                         <tr>
                                             <td colSpan={5}>

@@ -1,6 +1,26 @@
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
 
+export async function GET(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
+    const id = (await params).id;
+    const intId = parseInt(id);
+    const headers = request.headers;
+    headers.get("Content-Type");
+    try {
+        const getMatchById = await sql `
+        SELECT * FROM matches WHERE id = ${intId}
+        `;
+        if(getMatchById.rows.length > 0) {
+            return NextResponse.json({data: getMatchById.rows[0]});
+        }
+        else {
+            return NextResponse.json({error: "لم يتم العثور على المباراة"});
+        }
+    } catch(error) {
+        console.log(error);
+        return NextResponse.json({error: "فسل تحميل المباراة!"});
+    }
+}
 export async function PATCH(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
     const id = (await params).id;
     const formData = await request.formData();

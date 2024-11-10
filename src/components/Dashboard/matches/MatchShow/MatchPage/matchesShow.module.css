@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.matchesShow {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1; 
+}
+.error {
+    color: var(--errorColor);
+}
+.table {
+    flex: 1;
+}
+.table td{
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+.tableHeader {
+    background-color: rgb(115, 250, 121);
+}
+.status {
+    color: #726e6e;
+}
+.match {
+    background-color: rgb(247, 227, 174);
+}
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1rem;
+}
+@media screen and ( max-width: 600px) {
+    .table td {
+        padding: 0.2;
+    }
+    .table td p {
+        font-size: 0.6rem;
+    }
+}
