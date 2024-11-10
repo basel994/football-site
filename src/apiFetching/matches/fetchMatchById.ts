@@ -7,7 +7,7 @@ type ApiResponse = {
 export const matchFetcById = async (id: number): Promise<ApiResponse> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
     try {
-        const apiFetch = await fetch(`${baseUrl}/matches/${id}`, {cache: "no-store"});
+        const apiFetch = await fetch(`${baseUrl}/api/matches/${id}`, {cache: "no-store"});
         if(apiFetch.ok) {
             const response: ApiResponse = await apiFetch.json();
             return response;
