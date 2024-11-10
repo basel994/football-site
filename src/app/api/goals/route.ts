@@ -18,17 +18,19 @@ export async function POST(request: NextRequest) {
     const { 
         champion,
         match_id, 
+        team_id,
         player_id, 
         minute 
     }: { 
         champion: string;
         match_id: number;
+        team_id: number;
         player_id: number; 
         minute: number; 
     } = await request.json();
     try {
         const addGoalQuery = await sql `
-        INSERT INTO redCards (champion, match_id, player_id, minute) VALUES (${champion}, ${match_id}, ${player_id}, ${minute}) 
+        INSERT INTO redCards (champion, match_id, team_id, player_id, minute) VALUES (${champion}, ${match_id}, ${team_id}, ${player_id}, ${minute}) 
         RETURNING id
         `;
         if(addGoalQuery.rows.length > 0) {

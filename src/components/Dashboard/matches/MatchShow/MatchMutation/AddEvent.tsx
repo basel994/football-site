@@ -93,7 +93,7 @@ export default function AddEvent({
             setError("جميع الحقول مطلوبـة!")
         }
         else {
-            const body = {champion: champion, match_id: match, player_id: parseInt(player), minute: parseInt(eventTime)}
+            const body = {champion: champion, match_id: match, team_id: parseInt(team), player_id: parseInt(player), minute: parseInt(eventTime)}
             switch(event) {
                 case "goal" : 
                 const callGoal = await addGoal(body);

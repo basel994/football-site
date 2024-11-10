@@ -8,7 +8,6 @@ export async function PATCH(request: NextRequest, {params}: {params: Promise<{id
         player_id, 
         minute 
     }: { 
-        match_id: number;
         player_id: number; 
         minute: number; 
     } = await request.json();
