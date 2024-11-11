@@ -62,13 +62,13 @@ export default function AddEvent({
     const [message, setMessage] = useState<string>("");
     useEffect(() => {
         const playersByTeam = async() => {
+            setPlayers([]);
                 const callFun = await getPlayersByTeam(parseInt(team));
                 if(callFun.data) {
                     callFun.data.map((playerObject) => {
                         setPlayers(prev => [...prev, {key: playerObject.name, value: String(playerObject.id)}]);
                     })
                 }
-                else setPlayers([]);
         }
         playersByTeam();
     },[parseInt(team)]);
