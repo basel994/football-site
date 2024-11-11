@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     } = await request.json();
     try {
         const addGoalQuery = await sql `
-        INSERT INTO redCards (champion, match_id, team_id, player_id, minute) VALUES (${champion}, ${match_id}, ${team_id}, ${player_id}, ${minute}) 
+        INSERT INTO goals (champion, match_id, team_id, player_id, minute) VALUES (${champion}, ${match_id}, ${team_id}, ${player_id}, ${minute}) 
         RETURNING id
         `;
         if(addGoalQuery.rows.length > 0) {
