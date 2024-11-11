@@ -52,7 +52,7 @@ export default function AddEvent({
     }
     const router = useRouter();
     const [teams, setTeams] = useState<{key: string, value: string}[]>([]);
-    const [team, setTeam] = useState<string>("");
+    const [team, setTeam] = useState<string | null>(null);
     const [visible, setVisible] = useState<boolean>(false);
     const [event, setEvent ] = useState<string>("");
     const [eventTime, setEventTime] = useState<string>("");
@@ -62,13 +62,15 @@ export default function AddEvent({
     const [message, setMessage] = useState<string>("");
     useEffect(() => {
         const playersByTeam = async() => {
-            const callFun = await getPlayersByTeam(parseInt(team));
-            if(callFun.data) {
-                callFun.data.map((playerObject) => {
-                    setPlayers([{key: playerObject.name, value: String(playerObject.id)}]);
-                })
+            if(team) {
+                const callFun = await getPlayersByTeam(parseInt(team));
+                if(callFun.data) {
+                    callFun.data.map((playerObject) => {
+                        setPlayers(prev => [...prev, {key: playerObject.name, value: String(playerObject.id)}]);
+                    })
+                }
+                else setPlayers([]);
             }
-            else setPlayers([]);
         }
         playersByTeam();
     },[team]);
