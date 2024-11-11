@@ -1,21 +1,11 @@
 import { ChampionshipType } from "@/types/championshipType";
 import styles from "./championshipsShow.module.css";
-import Image from "next/image";
-import ChampionDelete from "./ChampionMutation/ChampionDelete";
-import ChampionUpdate from "./ChampionMutation/ChampionUpdate";
+import Link from "next/link";
+import CustomButton from "@/components/CustomButton/CustomButton";
 
 export default function ChampionshipsTable({championshipData}: {championshipData: ChampionshipType[]}) {
     return(
         <table className={styles.table}>
-            <thead>
-                <tr>
-                    <th><p>التسلسل</p></th>
-                    <th><p>البطولــة</p></th>
-                    <th><p>الشعــار</p></th>
-                    <th><p>تعـديل</p></th>
-                    <th><p>حــذف</p></th>
-                </tr>
-            </thead>
             <tbody>
                 {
                     championshipData.map((championshipObject, index) => {
@@ -24,16 +14,10 @@ export default function ChampionshipsTable({championshipData}: {championshipData
                                 <td><p>{index + 1}</p></td>
                                 <td><p>{championshipObject.name}</p></td>
                                 <td>
-                                    <Image src={championshipObject.logo} 
-                                    alt="" 
-                                    width={30} 
-                                    height={30} />
-                                </td>
-                                <td>
-                                    <ChampionUpdate id={String(championshipObject.id)} name={championshipObject.name} />
-                                </td>
-                                <td>
-                                    <ChampionDelete id={String(championshipObject.id)} name={championshipObject.name}/>
+                                    <Link href={`/dashboard/championships/${championshipObject.id}`}>
+                                    <CustomButton title="إعـداد" 
+                                    bg="rgb(124, 247, 161)"/>
+                                    </Link>
                                 </td>
                             </tr>
                         );
