@@ -53,7 +53,7 @@ export default async function Event({
                             goals && goals.map(async(goal) => {
                                 if(goal.team_id === team_id) {
                                     return(
-                                        <div className={styles.eventDetail}>
+                                        <div key={goal.id} className={styles.eventDetail}>
                                             <Image src="/images/matches/match.ico" 
                                             alt="" 
                                             width={15} 
@@ -75,7 +75,7 @@ export default async function Event({
                             yellowCards && yellowCards.map(async(yellow) => {
                                 if(yellow.team_id === team_id) {
                                     return(
-                                        <div className={styles.eventDetail}>
+                                        <div key={yellow.id} className={styles.eventDetail}>
                                             <Image src="/images/matches/yellowcard.ico" 
                                             alt="" 
                                             width={15} 
@@ -97,7 +97,7 @@ export default async function Event({
                             redCards && redCards.map(async(red) => {
                                 if(red.team_id === team_id) {
                                     return(
-                                        <div className={styles.eventDetail}>
+                                        <div key={red.id} className={styles.eventDetail}>
                                             <Image src="/images/matches/redcard.ico" 
                                             alt="" 
                                             width={15} 
