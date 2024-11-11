@@ -119,7 +119,7 @@ export default function AddEvent({
                     router.refresh();
                 }
                 break;
-                case "Red_card" : 
+                case "red_card" : 
                 const callRedCards = await addRedCard(body);
                 if(callRedCards.error) {
                     setMessage("");
