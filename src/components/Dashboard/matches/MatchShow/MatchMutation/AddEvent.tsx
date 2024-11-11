@@ -65,7 +65,7 @@ export default function AddEvent({
                 const callFun = await getPlayersByTeam(parseInt(team));
                 if(callFun.data) {
                     callFun.data.map((playerObject) => {
-                        setPlayers([{key: playerObject.name, value: String(playerObject.id)}]);
+                        setPlayers(prev => [...prev, {key: playerObject.name, value: String(playerObject.id)}]);
                     })
                 }
                 else setPlayers([]);
