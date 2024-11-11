@@ -6,7 +6,7 @@ import MatchDelete from "../MatchMutation/MatchDelete";
 import { dateForm } from "@/functions/dateForm";
 import MatchStateUpdating from "../MatchMutation/MatchStateUpdating";
 import AddEvent from "../MatchMutation/AddEvent";
-import { getGoalsByMatch } from "@/apiFetching/goals/getGoalsByMatch";
+import Event from "./Event";
 
 export default async function MatchDetails({matchData}: {matchData: MatchType}) {
     const getTeamName = async (id: number) => {
@@ -20,38 +20,20 @@ export default async function MatchDetails({matchData}: {matchData: MatchType}) 
         }
         return team;
     }
+
     const getDateForm = (date: string) => {
         return dateForm(new Date(date));
     }
- 
-    const goalsGet = async (match_id: number) => {
-        const callFun = await getGoalsByMatch(match_id);
-        if(callFun.data) return callFun.data;
-        else return null;
-    }
+
     const team_one = await getTeamName(matchData.team_one);
     const team_two = await getTeamName(matchData.team_two);
     const match_date = getDateForm(matchData.match_date);
-    const goals = await goalsGet(matchData.id);
-    console.log(goals);
+
     return(
         <div className={styles.matchesShow}>
                             <table className={styles.table}>
                                 <tbody>
-                                    <tr className={styles.tableHeader}>
-                                        <td colSpan={5}>
-                                            <p>{matchData.championship}</p>
-                                        </td>
-                                    </tr>
-
-                                            <tr className={styles.match}>
-                                            <td><p>{team_one}</p></td>
-                                            <td><p>{team_two}</p></td>
-                                            <td><p>{match_date.stringDate}</p></td>
-                                            <td><p>{match_date.stringTime}</p></td>
-                                            <td><p>{matchData.status}</p></td>
-                                        </tr>
-                                        <tr>
+                                <tr>
                                             <td colSpan={5}>
                                                 <div className={styles.control} >
                                                     <MatchUpdate matcObject={matchData} />
@@ -69,10 +51,30 @@ export default async function MatchDetails({matchData}: {matchData: MatchType}) 
                                                 </div>
                                             </td>
                                         </tr>
+                                    <tr className={styles.tableHeader}>
+                                        <td colSpan={5}>
+                                            <p>{matchData.championship}</p>
+                                        </td>
+                                    </tr>
+
+                                            <tr className={styles.match}>
+                                            <td><p>{team_one}</p></td>
+                                            <td><p>{team_two}</p></td>
+                                            <td><p>{match_date.stringDate}</p></td>
+                                            <td><p>{match_date.stringTime}</p></td>
+                                            <td><p>{matchData.status}</p></td>
+                                        </tr>
 
                                 </tbody>
                             </table>
-            
+                            <div className={styles.teamsEvents}>
+                                <Event match_id={matchData.id} 
+                                team_id={matchData.team_one} 
+                                team_name={team_one} />
+                                <Event match_id={matchData.id} 
+                                team_id={matchData.team_two} 
+                                team_name={team_two} />
+                            </div>
         </div>
     );
 }

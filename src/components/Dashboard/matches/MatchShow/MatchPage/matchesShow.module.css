@@ -31,11 +31,53 @@
 .match {
     background-color: rgb(247, 227, 174);
 }
+.teamsEvents {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.eventsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0.5;
+}
+.events {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+.event {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.eventDetail {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 .control {
     display: flex;
     align-items: center;
     justify-content: space-around;
     gap: 1rem;
+}
+.modalBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media screen and ( max-width: 900px) {
+    .teamsEvents {
+        flex-direction: column;
+        align-items: center;
+    }
+    .eventsContainer {
+        flex: 1;
+    }
 }
 @media screen and ( max-width: 600px) {
     .table td {
