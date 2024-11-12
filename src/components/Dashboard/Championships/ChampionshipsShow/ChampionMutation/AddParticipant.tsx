@@ -78,7 +78,9 @@ export default function AddParticipant({champion}: {champion: string}) {
     }
     return(
         <>
-            <CustomButton icon="/images/controlIcons/add.ico" clicked={addClicked} />
+            <div className={styles.add}>
+                <CustomButton icon="/images/controlIcons/add.ico" clicked={addClicked} />
+            </div>
             <CustomModal title="إضافة مشارك للبطولة" 
             visible={visible} 
             setVisible={setVisible} 

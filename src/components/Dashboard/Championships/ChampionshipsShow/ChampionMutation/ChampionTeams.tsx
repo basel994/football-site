@@ -20,31 +20,34 @@ export default async function ChampionTeams({champion}: {champion: string;}) {
         else return null;
     }
     return(
-        <div>
+        <div className={styles.participant}>
             <div><p>المشاركون في هذه البطولـة: </p></div>
             {
                 !fetchParticipants.data ? 
                 <p className={styles.error}>{fetchParticipants.error}</p> : 
-                <table>
-                    <tr>
-                        <td colSpan={2}>
+                <table className={styles.table}>
+                    <tbody>
+                        <tr>
+                            <td colSpan={3}>
                             <AddParticipant champion={champion} />
-                        </td>
-                    </tr>
-                    {
-                fetchParticipants.data.map(async (participant) => {
-                    if(participant.champion === champion) {
-                        return(
-                            <tr key={participant.id}>
-                                <td>{participant.type === "teams" ? 
-                                await getTeamName(participant.team_id) : 
-                                await getCountryName(participant.team_id)}</td>
-                                <td>delete</td>
-                            </tr>
-                        );
-                    }
-                })
-            }
+                            </td>
+                        </tr>
+                        {
+                            fetchParticipants.data.map(async (participant, index) => {
+                                if(participant.champion === champion) {
+                                    return(
+                                        <tr key={participant.id}>
+                                            <td>{index + 1}</td>
+                                           <td>{participant.type === "teams" ? 
+                                           await getTeamName(participant.team_id) : 
+                                           await getCountryName(participant.team_id)}</td>
+                                           <td>delete</td>
+                                        </tr>
+                                    );
+                                }
+                            })
+                        }
+                    </tbody>
                 </table>
             }
         </div>

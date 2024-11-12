@@ -11,23 +11,19 @@ export default function ChampionshipPage({championshipData}: {championshipData: 
         <table className={styles.table}>
             <tbody>
                 <tr>
+                    <td>
+                        <Image src={championshipData.logo} 
+                        alt="" 
+                        width={100} 
+                        height={100} />
+                    </td>
+                    <td colSpan={2}><p className={styles.title}>{championshipData.name}</p></td>
                     <td colSpan={2}>
                         <div className={styles.control}>
                         <ChampionUpdate id={String(championshipData.id)} name={championshipData.name} />
                         <ChampionDelete id={String(championshipData.id)} name={championshipData.name}/>
                         </div>
                     </td>
-                </tr>
-                <tr>
-                    <td colSpan={2}>
-                        <Image src={championshipData.logo} 
-                        alt="" 
-                        width={100} 
-                        height={100} />
-                    </td>
-                </tr>
-                <tr>
-                    <td colSpan={2}><p>{championshipData.name}</p></td>
                 </tr>
             </tbody>
         </table>
