@@ -10,7 +10,7 @@ export async function GET(request: NextRequest, {params}: {params: Promise<{cham
         SELECT * FROM participants WHERE champion = ${champion}
         `;
         if(fetchParticipantByIdQuery.rows.length > 0) {
-            return NextResponse.json({data: fetchParticipantByIdQuery.rows[0]});
+            return NextResponse.json({data: fetchParticipantByIdQuery.rows});
         }
         else {
             return NextResponse.json({error: "لم يتم العثور على مشاركون!"});
