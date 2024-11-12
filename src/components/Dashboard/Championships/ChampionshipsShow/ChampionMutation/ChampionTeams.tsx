@@ -3,6 +3,7 @@ import styles from "./championMutation.module.css";
 import AddParticipant from "./AddParticipant";
 import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
 import { getCountryById } from "@/apiFetching/countries/getCountryById";
+import DeleteParticipant from "./deleteParticipant";
 export default async function ChampionTeams({champion}: {champion: string;}) {
     const fetchParticipants = await getParticipants();
     const getTeamName = async(id: number) => {
@@ -41,7 +42,7 @@ export default async function ChampionTeams({champion}: {champion: string;}) {
                                            <td>{participant.type === "teams" ? 
                                            await getTeamName(participant.team_id) : 
                                            await getCountryName(participant.team_id)}</td>
-                                           <td>delete</td>
+                                           <td><DeleteParticipant id={participant.id} /></td>
                                         </tr>
                                     );
                                 }
