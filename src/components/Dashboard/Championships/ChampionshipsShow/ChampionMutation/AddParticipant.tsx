@@ -34,7 +34,7 @@ export default function AddParticipant({champion}: {champion: string}) {
             else setTeams([]);
         }
         getCountriesAndTeams();
-    });
+    },[]);
     const addClicked = () => {
         setVisible(true);
     }
