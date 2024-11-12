@@ -3,25 +3,15 @@ import CustomModal from "@/components/CustomModal/CustomModal";
 import styles from "./addMatch.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { teamsFetch } from "@/apiFetching/teams/teamsFetch";
 import SelectInput from "@/components/Form/SelectInput/SelectInput";
 import { championshipsFetch } from "@/apiFetching/championships/championshipsFetch";
 import { addNewMatch } from "@/apiFetching/matches/addNewMatch";
 import DateInput from "@/components/Form/DateInput/DateInput";
+import { getParticipantsByChampion } from "@/apiFetching/participants/getParticipantsByChampion";
+import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
+import { getCountryById } from "@/apiFetching/countries/getCountryById";
 export default function AddMatch() {
     useEffect(() => {
-        const getTeams = async () => {
-            const callAddFun = await teamsFetch();
-            if(callAddFun.error){
-                setTeams(null);
-            }
-            else {
-                const teamsMapped = callAddFun.data?.map((team) => 
-                ({key: team.name, value: String(team.id)}));
-                if(teamsMapped)
-                setTeams(teamsMapped);
-            }
-        }
         const getChampionships = async () => {
             const callAddFun = await championshipsFetch();
             if(callAddFun.error){
@@ -34,21 +24,47 @@ export default function AddMatch() {
                 setChampionships(championsMapped);
             }
         }
-        getTeams();
-        getChampionships()
+        getChampionships();
     }, []);
     const router = useRouter();
     const [ visible, setVisible ] = useState<boolean>(false);
     const [ team_one, setTeam_one ] = useState<string | null>(null);
     const [ team_two, setTeam_two ] = useState<string | null>(null);
-    const [teams, setTeams] = useState<{key: string, value: string}[] | null>(null);
+    const [teams, setTeams] = useState<{key: string, value: string}[]>([]);
     const [championships, setChampionships] = useState<{key: string, value: string}[] | null>(null);
     const [ championship, setChampionship ] = useState<string>("");
     const [ match_date, setMatch_date ] = useState<string>(`${new Date()}`);
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ error, setError ] = useState<string>("");
     const [ message, setMessage ] = useState<string>("");
+    useEffect(() => {
+        const getTeams = async () => {
+            setTeams([]);
+            const fetchParticipants = await getParticipantsByChampion(championship);
+            if(fetchParticipants.data) {
+                fetchParticipants.data.map(async(participant) => {
+                    if(participant.type === "teams") {
+                        const fetchTeamName = await teamsFetchById(participant.team_id);
+                        if(fetchTeamName.data) {
+                            const data = fetchTeamName.data;
+                            setTeams(prev => [...prev, {key: data.name, value: String(participant.team_id)}])
+                        }
+                    }
+                    else {
+                        const fetchTeamName = await getCountryById(participant.team_id);
+                        if(fetchTeamName.data) {
+                            const data = fetchTeamName.data;
+                            setTeams(prev => [...prev, {key: data.name, value: String(participant.team_id)}])
+                        }
+                    }
+                })
+            }
 
+        }
+
+        getTeams();
+
+    }, [championship]);
     const onAddClicked = () => {
         setVisible(true);
         setError("");
@@ -83,9 +99,9 @@ export default function AddMatch() {
     }
 
     const modalBody = <div className={styles.modalBody}>
+        <SelectInput label="اختـر البطـولــة" options={championships} setValue={setChampionship}/>
         <SelectInput label="اختـر الفريـق الأول" options={teams} setValue={setTeam_one}/>
         <SelectInput label="اختـر الفريـق الثـاني" options={teams} setValue={setTeam_two}/>
-        <SelectInput label="اختـر البطـولــة" options={championships} setValue={setChampionship}/>
         <DateInput label="حـدد التاريخ والوقت" setValue={setMatch_date} />
     </div>;
     console.log(match_date);

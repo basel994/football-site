@@ -4,7 +4,7 @@ type ApiResponse = {
     error?: string;
     data?: ParticipantType[];
 }
-export async function getParticipants(champion: string): Promise<ApiResponse> {
+export async function getParticipantsByChampion(champion: string): Promise<ApiResponse> {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     try {
         const callApi = await fetch(`${baseUrl}/api/participants/champions/${champion}`, {
