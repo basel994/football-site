@@ -12,34 +12,48 @@ import CustomModal from "@/components/CustomModal/CustomModal";
 export default function AddParticipant({champion}: {champion: string}) {
     const [visible, setVisible] = useState<boolean>(false);
     const [team, setTeam] = useState<string>("");
+    const [status, setSttus] = useState<string>("");
+    const [type, setType] = useState<{key: string, value: string}[]>([
+    { key: "منتخبـات", value: "countries"}, 
+    {key: "فـرق", value: "teams"}, 
+    ]);
     const [teams, setTeams] = useState<{key: string, value: string}[]>([]);
+    const [countries, setCountries] = useState<{key: string, value: string}[]>([]);
     const [message, setMessage] = useState<string>("");
     const [error, setError] = useState<string>("");
     const [loading, setLoding] = useState<boolean>(false);
     const router = useRouter();
     useEffect(() => {
-        const getCountriesAndTeams = async () => {
+        const countriesGet = async () => {
             const countries = await getCountries();
             if(countries.data) {
+                countries.data.map(country => {
+                    setCountries(prev => [...prev, {key: country.name, value: String(country.id)}]);
+                });
+            }
+                }
+        const getTeams = async () => {
                 const fetchTeams = await teamsFetch();
                 if(fetchTeams.data) {
-                    countries.data.map(country => {
-                        setTeams(prev => [...prev, {key: country.name, value: String(country.id)}]);
-                    });
                     fetchTeams.data.map(team => {
                         setTeams(prev => [...prev, {key: team.name, value: String(team.id)}]);
-                    })
+                    });
                 }
             }
-            else setTeams([]);
-        }
-        getCountriesAndTeams();
+        countriesGet();
+        getTeams();
     },[]);
     const addClicked = () => {
         setVisible(true);
     }
     const modalBody = <div className={styles.modalBody}>
-        <SelectInput label="حدد منتخب/فريق" options={teams} setValue={setTeam} />
+        <SelectInput label="حدد نوع المشاركون" options={type} setValue={setSttus} />
+        {
+            status === "countries" && <SelectInput label="حدد منتخـب" options={countries} setValue={setTeam} />
+        }
+        {
+            status === "teams" && <SelectInput label="حدد فريق" options={teams} setValue={setTeam} />
+        }
     </div>
     const onOk = async() => {
         if(!team) {
@@ -47,7 +61,7 @@ export default function AddParticipant({champion}: {champion: string}) {
         }
         else {
             setLoding(true);
-            const body = {champion: champion, team_id: parseInt(team)};
+            const body = {champion: champion, team_id: parseInt(team), type: status};
             const participantAdd = await addParticipant(body);
             if(participantAdd.error) {
                 setLoding(false);

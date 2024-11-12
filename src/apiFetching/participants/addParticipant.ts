@@ -2,7 +2,7 @@ type ApiResponse = {
     error?: string;
     message?: string;
 }
-export async function addParticipant(body: {champion: string, team_id: number}): Promise<ApiResponse> {
+export async function addParticipant(body: {champion: string, team_id: number, type: string;}): Promise<ApiResponse> {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     try {
         const callApi = await fetch(`${baseUrl}/api/participants`, {

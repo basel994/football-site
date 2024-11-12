@@ -2,10 +2,18 @@ import { getParticipants } from "@/apiFetching/participants/getParticipants";
 import styles from "./championMutation.module.css";
 import AddParticipant from "./AddParticipant";
 import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
+import { getCountryById } from "@/apiFetching/countries/getCountryById";
 export default async function ChampionTeams({champion}: {champion: string;}) {
     const fetchParticipants = await getParticipants();
     const getTeamName = async(id: number) => {
         const getTeam = await teamsFetchById(id);
+        if(getTeam.data) {
+            return getTeam.data.name;
+        }
+        else return null;
+    }
+    const getCountryName = async(id: number) => {
+        const getTeam = await getCountryById(id);
         if(getTeam.data) {
             return getTeam.data.name;
         }
@@ -28,7 +36,9 @@ export default async function ChampionTeams({champion}: {champion: string;}) {
                     if(participant.champion === champion) {
                         return(
                             <tr key={participant.id}>
-                                <td>{await getTeamName(participant.team_id)}</td>
+                                <td>{participant.type === "teams" ? 
+                                await getTeamName(participant.team_id) : 
+                                await getCountryName(participant.team_id)}</td>
                                 <td>delete</td>
                             </tr>
                         );
