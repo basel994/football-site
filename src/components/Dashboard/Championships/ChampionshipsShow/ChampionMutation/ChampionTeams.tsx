@@ -27,7 +27,7 @@ export default async function ChampionTeams({champion}: {champion: string;}) {
                 fetchParticipants.data.map(async (participant) => {
                     if(participant.champion === champion) {
                         return(
-                            <tr>
+                            <tr key={participant.id}>
                                 <td>{await getTeamName(participant.team_id)}</td>
                                 <td>delete</td>
                             </tr>
