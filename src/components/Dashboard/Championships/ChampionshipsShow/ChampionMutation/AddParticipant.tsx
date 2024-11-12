@@ -12,11 +12,11 @@ import CustomModal from "@/components/CustomModal/CustomModal";
 export default function AddParticipant({champion}: {champion: string}) {
     const [visible, setVisible] = useState<boolean>(false);
     const [team, setTeam] = useState<string>("");
-    const [status, setSttus] = useState<string>("");
-    const [type, setType] = useState<{key: string, value: string}[]>([
+    const [status, setStatus] = useState<string>("");
+    const types = [
     { key: "منتخبـات", value: "countries"}, 
     {key: "فـرق", value: "teams"}, 
-    ]);
+    ];
     const [teams, setTeams] = useState<{key: string, value: string}[]>([]);
     const [countries, setCountries] = useState<{key: string, value: string}[]>([]);
     const [message, setMessage] = useState<string>("");
@@ -47,7 +47,7 @@ export default function AddParticipant({champion}: {champion: string}) {
         setVisible(true);
     }
     const modalBody = <div className={styles.modalBody}>
-        <SelectInput label="حدد نوع المشاركون" options={type} setValue={setSttus} />
+        <SelectInput label="حدد نوع المشاركون" options={types} setValue={setStatus} />
         {
             status === "countries" && <SelectInput label="حدد منتخـب" options={countries} setValue={setTeam} />
         }
