@@ -8,12 +8,7 @@ export async function GET(request: NextRequest) {
         const fetchParticipantsQuery = await sql `
         SELECT * FROM participants
         `;
-        if(fetchParticipantsQuery.rows.length > 0) {
-            return NextResponse.json({data: fetchParticipantsQuery.rows});
-        }
-        else {
-            return NextResponse.json({error: "فشل تحميل المشاركون في البطولة!"});
-        }
+        return NextResponse.json({data: fetchParticipantsQuery.rows});
     } catch(error) {
         console.log(error);
         return NextResponse.json({error: "حدث خطأ"});
