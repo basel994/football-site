@@ -17,26 +17,25 @@ export async function GET(request: NextRequest) {
             SELECT * FROM matches WHERE match_date::date = ${date} 
             `;
             if(getDatedMatchesQuery.rows.length > 0) {
-                let finalResult: {team_one: string, team_two: string, goals: {}[]}[]=[];
                 const fetchResult = async () => {
-                    getDatedMatchesQuery.rows.map(async(match) => {
-                        let team_one = "", team_two = "", goals;
+                    const result = getDatedMatchesQuery.rows.map(async(match) => {
+                        let team_one = "", team_two = "", goals: Promise<{team: string, player: string, minute: number}>[];
                         const getChampion = await fetchChampionByName(match.champion);
                         if(getChampion.data) {
                             if(getChampion.data.type === "teams") {
                                 const getTeamName_one = await teamsFetchById(match.team_one);
                                 const getTeamName_two = await teamsFetchById(match.team_two);
                                 if(getTeamName_one.data && getTeamName_two.data) {
-                                    team_one = "getTeamName_one.data.name";
-                                    team_two = "getTeamName_two.data.name";
+                                    team_one = getTeamName_one.data.name;
+                                    team_two = getTeamName_two.data.name;
                                 }
                             }
                             else {
                                 const getTeamName_one = await getCountryById(match.team_one);
                                 const getTeamName_two = await getCountryById(match.team_two);
                                 if(getTeamName_one.data && getTeamName_two.data) {
-                                    team_one = "getTeamName_one.data.name";
-                                    team_two = "getTeamName_two.data.name";
+                                    team_one = getTeamName_one.data.name;
+                                    team_two = getTeamName_two.data.name;
                                 }
                             }
                         }
@@ -47,43 +46,43 @@ export async function GET(request: NextRequest) {
                             const getGoals = await getGoalsByMatch(match.id);
                             if(getGoals.data) {
                                 const fetchGoals = getGoals.data;
-                                const goalsArray = fetchGoals.map(async(goal) => {
-                                    let team ="", player="";
-                                    const champion = await fetchChampionByName(goal.champion);
-                                    if(champion.data) {
-                                        if(champion.data.type === "teams") {
-                                            const fetchTeam = await teamsFetchById(goal.team_id);
-                                            if(fetchTeam.data) {
-                                                team = fetchTeam.data.name;
+                                const fetchArray = async () => {
+                                    const goalsArray = fetchGoals.map(async(goal) => {
+                                        let team ="", player="";
+                                        const champion = await fetchChampionByName(goal.champion);
+                                        if(champion.data) {
+                                            if(champion.data.type === "teams") {
+                                                const fetchTeam = await teamsFetchById(goal.team_id);
+                                                if(fetchTeam.data) {
+                                                    team = fetchTeam.data.name;
+                                                }
+                                            }
+                                            else {
+                                                const fetchTeam = await getCountryById(goal.team_id);
+                                                if(fetchTeam.data) {
+                                                    team = fetchTeam.data.name;
+                                                }
                                             }
                                         }
-                                        else {
-                                            const fetchTeam = await getCountryById(goal.team_id);
-                                            if(fetchTeam.data) {
-                                                team = fetchTeam.data.name;
-                                            }
+                                        const getPlayer = await getPlayerById(goal.player_id);
+                                        if(getPlayer.data) {
+                                            player = getPlayer.data.name;
                                         }
-                                    }
-                                    const getPlayer = await getPlayerById(goal.player_id);
-                                    if(getPlayer.data) {
-                                        player = getPlayer.data.name;
-                                    }
-                                    return {team: "team", player: "player", minute: goal.minute}
-                                });
-                                goals = goalsArray;
+                                        return {team: "team", player: "player", minute: goal.minute}
+                                    });
+                                    return goalsArray
+                                }
+                                goals = await fetchArray();
                             }
                             else{
-                                goals = [{team: "not found", player: "not found", minute: "6"}]
+                                goals = [];
                             }
-                        finalResult.push({
-                            team_one: team_one,
-                            team_two: team_two,
-                            goals: goals,
-                        })
+                        return {team_one: team_one, team_two: team_two, goals: goals};
                     });
+                    return result;
                 };
-                await fetchResult();
-                return NextResponse.json({data: finalResult});
+                const result = await fetchResult();
+                return NextResponse.json({data: result});
             }
         } catch(error) {
             console.log(error);
