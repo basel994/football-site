@@ -10,6 +10,7 @@ import DateInput from "@/components/Form/DateInput/DateInput";
 import { getParticipantsByChampion } from "@/apiFetching/participants/getParticipantsByChampion";
 import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
 import { getCountryById } from "@/apiFetching/countries/getCountryById";
+import { fetchChampionByName } from "@/apiFetching/championships/fetchChampionByName";
 export default function AddMatch() {
     useEffect(() => {
         const getChampionships = async () => {
@@ -40,26 +41,28 @@ export default function AddMatch() {
     useEffect(() => {
         const getTeams = async () => {
             setTeams([]);
-            const fetchParticipants = await getParticipantsByChampion(championship);
-            if(fetchParticipants.data) {
-                fetchParticipants.data.map(async(participant) => {
-                    if(participant.type === "teams") {
-                        const fetchTeamName = await teamsFetchById(participant.team_id);
-                        if(fetchTeamName.data) {
-                            const data = fetchTeamName.data;
-                            setTeams(prev => [...prev, {key: data.name, value: String(participant.team_id)}])
+            const getChampion = await fetchChampionByName(championship);
+            if(getChampion.data) {
+                const fetchParticipants = await getParticipantsByChampion(championship);
+                if(fetchParticipants.data) {
+                    fetchParticipants.data.map(async(participant) => {
+                        if(getChampion.data?.type === "teams") {
+                            const fetchTeamName = await teamsFetchById(participant.team_id);
+                            if(fetchTeamName.data) {
+                                const data = fetchTeamName.data;
+                                setTeams(prev => [...prev, {key: data.name, value: String(participant.team_id)}])
+                            }
                         }
-                    }
-                    else {
-                        const fetchTeamName = await getCountryById(participant.team_id);
-                        if(fetchTeamName.data) {
-                            const data = fetchTeamName.data;
-                            setTeams(prev => [...prev, {key: data.name, value: String(participant.team_id)}])
+                        else {
+                            const fetchTeamName = await getCountryById(participant.team_id);
+                            if(fetchTeamName.data) {
+                                const data = fetchTeamName.data;
+                                setTeams(prev => [...prev, {key: data.name, value: String(participant.team_id)}])
+                            }
                         }
-                    }
-                })
+                    })
+                }
             }
-
         }
 
         getTeams();

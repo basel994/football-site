@@ -27,7 +27,7 @@ export default function ChampionshipPage({championshipData}: {championshipData: 
                 </tr>
             </tbody>
         </table>
-        <ChampionTeams champion={championshipData.name} />
+        <ChampionTeams champion={championshipData} />
         </>
     );
 }

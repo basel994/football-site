@@ -7,26 +7,44 @@ import { dateForm } from "@/functions/dateForm";
 import MatchStateUpdating from "../MatchMutation/MatchStateUpdating";
 import AddEvent from "../MatchMutation/AddEvent";
 import Event from "./Event";
+import { getCountryById } from "@/apiFetching/countries/getCountryById";
+import { fetchChampionByName } from "@/apiFetching/championships/fetchChampionByName";
 
 export default async function MatchDetails({matchData}: {matchData: MatchType}) {
-    const getTeamName = async (id: number) => {
-        const get_team = await teamsFetchById(id);
-        let team;
-        if(get_team.data) {
-            team = get_team.data.name;
+    const getTeamName = async (id: number, type: string) => {
+        if(type === "teams") {
+            const get_team = await teamsFetchById(id);
+            let team;
+            if(get_team.data) {
+                team = get_team.data.name;
+            }
+            else {
+                team= "";
+            }
+            return team;
         }
         else {
-            team= "";
+            const get_team = await getCountryById(id);
+            let team;
+            if(get_team.data) {
+                team = get_team.data.name;
+            }
+            else {
+                team= "";
+            }
+            return team;
         }
-        return team;
     }
 
     const getDateForm = (date: string) => {
         return dateForm(new Date(date));
     }
-
-    const team_one = await getTeamName(matchData.team_one);
-    const team_two = await getTeamName(matchData.team_two);
+    const getChampion = await fetchChampionByName(matchData.championship);
+    let team_one = "", team_two = "";
+    if(getChampion.data) {
+        team_one = await getTeamName(matchData.team_one, getChampion.data.type);
+        team_two = await getTeamName(matchData.team_two, getChampion.data.type);
+    }
     const match_date = getDateForm(matchData.match_date);
 
     return(

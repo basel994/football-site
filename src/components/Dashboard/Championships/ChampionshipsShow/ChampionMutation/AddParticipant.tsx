@@ -8,15 +8,11 @@ import SelectInput from "@/components/Form/SelectInput/SelectInput";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import CustomModal from "@/components/CustomModal/CustomModal";
+import { ChampionshipType } from "@/types/championshipType";
 
-export default function AddParticipant({champion}: {champion: string}) {
+export default function AddParticipant({champion}: {champion: ChampionshipType}) {
     const [visible, setVisible] = useState<boolean>(false);
     const [team, setTeam] = useState<string>("");
-    const [status, setStatus] = useState<string>("");
-    const types = [
-    { key: "منتخبـات", value: "countries"}, 
-    {key: "فـرق", value: "teams"}, 
-    ];
     const [teams, setTeams] = useState<{key: string, value: string}[]>([]);
     const [countries, setCountries] = useState<{key: string, value: string}[]>([]);
     const [message, setMessage] = useState<string>("");
@@ -47,12 +43,11 @@ export default function AddParticipant({champion}: {champion: string}) {
         setVisible(true);
     }
     const modalBody = <div className={styles.modalBody}>
-        <SelectInput label="حدد نوع المشاركون" options={types} setValue={setStatus} />
         {
-            status === "countries" && <SelectInput label="حدد منتخـب" options={countries} setValue={setTeam} />
+            champion.type === "countries" && <SelectInput label="حدد منتخـب" options={countries} setValue={setTeam} />
         }
         {
-            status === "teams" && <SelectInput label="حدد فريق" options={teams} setValue={setTeam} />
+            champion.type === "teams" && <SelectInput label="حدد فريق" options={teams} setValue={setTeam} />
         }
     </div>
     const onOk = async() => {
@@ -61,7 +56,7 @@ export default function AddParticipant({champion}: {champion: string}) {
         }
         else {
             setLoding(true);
-            const body = {champion: champion, team_id: parseInt(team), type: status};
+            const body = {champion: champion.name, team_id: parseInt(team)};
             const participantAdd = await addParticipant(body);
             if(participantAdd.error) {
                 setLoding(false);

@@ -24,13 +24,15 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     const id = (await params).id;   
     const formData = await request.formData();
     const newName = formData.get("newName") as string;
+    const newType = formData.get("newType") as string;
     const newLogo = formData.get("newLogo") as File;
     try {  
         if(!newLogo){
             
             const result = await sql`  
             UPDATE championships
-            SET name = ${newName} 
+            SET name = ${newName}, 
+            type = ${newType} 
             WHERE id = ${parseInt(id)}  
             RETURNING *  
             `;
@@ -68,7 +70,8 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
                   const res = await sql`  
                   UPDATE championships
                   SET name = ${newName},
-                  logo = ${uploadResult.secure_url} 
+                  logo = ${uploadResult.secure_url}, 
+                  type = ${newType} 
                   WHERE id = ${parseInt(id)}  
                   RETURNING * 
                   `;  

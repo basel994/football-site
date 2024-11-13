@@ -15,10 +15,10 @@ export async function GET(request: NextRequest) {
     }
 }
 export async function POST(request: NextRequest) {
-    const {champion, team_id, type} = await request.json();
+    const {champion, team_id} = await request.json();
     try {
         const addNewParticipantQuery = await sql `
-        INSERT INTO participants (champion, team_id, type) VALUES (${champion}, ${team_id}, ${type}) 
+        INSERT INTO participants (champion, team_id) VALUES (${champion}, ${team_id}) 
         RETURNING id
         `;
         if(addNewParticipantQuery.rows.length > 0) {

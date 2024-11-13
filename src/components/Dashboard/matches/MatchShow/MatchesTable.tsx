@@ -3,18 +3,33 @@ import { MatchType } from "@/types/matchType";
 import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
 import { dateForm } from "@/functions/dateForm";
 import Link from "next/link";
+import { getCountryById } from "@/apiFetching/countries/getCountryById";
+import { fetchChampionByName } from "@/apiFetching/championships/fetchChampionByName";
 
 export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) {
-    const getTeamName = async (id: number) => {
-        const get_team = await teamsFetchById(id);
-        let team;
-        if(get_team.data) {
-            team = get_team.data.name;
+    const getTeamName = async (id: number, type: string) => {
+        if(type === "teams") {
+            const get_team = await teamsFetchById(id);
+            let team;
+            if(get_team.data) {
+                team = get_team.data.name;
+            }
+            else {
+                team= "";
+            }
+            return team;
         }
         else {
-            team= "";
+            const get_team = await getCountryById(id);
+            let team;
+            if(get_team.data) {
+                team = get_team.data.name;
+            }
+            else {
+                team= "";
+            }
+            return team;
         }
-        return team;
     }
     const getDateForm = (date: string) => {
         return dateForm(new Date(date));
@@ -51,8 +66,12 @@ export default function MatchesTable({matchesData}: {matchesData: MatchType[]}) 
                                         </td>
                                     </tr>
                                     {matcObject.matches.map(async(matcObject) => {
-                                        const team_one = await getTeamName(matcObject.team_one);
-                                        const team_two = await getTeamName(matcObject.team_two);
+                                        const getChampion = await fetchChampionByName(matcObject.championship);
+                                        let team_one = "", team_two = "";
+                                        if(getChampion.data) {
+                                            team_one = await getTeamName(matcObject.team_one, getChampion.data.type);
+                                            team_two = await getTeamName(matcObject.team_two, getChampion.data.type);
+                                        }
                                         const match_date = getDateForm(matcObject.match_date);
                                         return(
                                             <>

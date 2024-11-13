@@ -26,6 +26,7 @@ export async function GET( request: NextRequest) {
 export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const name = formData.get("name") as string;
+    const type = formData.get("type") as string;
     const logo = formData.get("logo") as File;
     try {
         const arrayBuffer = await logo.arrayBuffer();
@@ -45,8 +46,8 @@ export async function POST(request: NextRequest) {
         });
         const uploadResult = await uploadResultPromise;
         const res = await sql`  
-        INSERT INTO championships(name, logo)   
-        VALUES (${name}, ${uploadResult.secure_url})  
+        INSERT INTO championships(name, logo, type)   
+        VALUES (${name}, ${uploadResult.secure_url}, ${type})  
         RETURNING id;  
       `;
       if(res.rows.length > 0) {

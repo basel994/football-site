@@ -4,7 +4,8 @@ import AddParticipant from "./AddParticipant";
 import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
 import { getCountryById } from "@/apiFetching/countries/getCountryById";
 import DeleteParticipant from "./deleteParticipant";
-export default async function ChampionTeams({champion}: {champion: string;}) {
+import { ChampionshipType } from "@/types/championshipType";
+export default async function ChampionTeams({champion}: {champion: ChampionshipType;}) {
     const fetchParticipants = await getParticipants();
     const getTeamName = async(id: number) => {
         const getTeam = await teamsFetchById(id);
@@ -35,11 +36,11 @@ export default async function ChampionTeams({champion}: {champion: string;}) {
                         </tr>
                         {
                             fetchParticipants.data.map(async (participant, index) => {
-                                if(participant.champion === champion) {
+                                if(participant.champion === champion.name) {
                                     return(
                                         <tr key={participant.id}>
                                             <td>{index + 1}</td>
-                                           <td>{participant.type === "teams" ? 
+                                           <td>{champion.type === "teams" ? 
                                            await getTeamName(participant.team_id) : 
                                            await getCountryName(participant.team_id)}</td>
                                            <td><DeleteParticipant id={participant.id} /></td>
