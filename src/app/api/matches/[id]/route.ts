@@ -24,17 +24,11 @@ export async function GET(request: NextRequest, {params}: {params: Promise<{id: 
 export async function PATCH(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
     const id = (await params).id;
     const formData = await request.formData();
-    const team_one = formData.get("team_one") as string;
-    const team_two = formData.get("team_two") as string;
-    const championship = formData.get("championship") as string;
     const match_date = formData.get("match_date") as string;
     try {
         const res = await sql`  
         UPDATE matches
-        SET team_one = ${parseInt(team_one)},
-        team_two = ${parseInt(team_two)},
-        championship = ${championship},
-        match_date = ${match_date} 
+        SET match_date = ${match_date} 
         WHERE id = ${parseInt(id)}
         RETURNING *
       `;

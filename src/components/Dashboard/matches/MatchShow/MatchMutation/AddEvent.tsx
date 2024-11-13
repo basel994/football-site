@@ -11,6 +11,9 @@ import { addGoal } from "@/apiFetching/goals/addGoal";
 import { addRedCard } from "@/apiFetching/redCards/addRedCard";
 import { addYellowCard } from "@/apiFetching/yellowCards/addYellowCard";
 import { useRouter } from "next/navigation";
+import { getCountryById } from "@/apiFetching/countries/getCountryById";
+import { fetchChampionByName } from "@/apiFetching/championships/fetchChampionByName";
+import { getPlayersByCountry } from "@/apiFetching/players/getPlayersByCountry";
 
 export default function AddEvent({
     team_one,
@@ -25,11 +28,24 @@ export default function AddEvent({
 }) {
     useEffect( () => {
         const getTeamName = async (id: number) => {
-            const callFun = await teamsFetchById(id);
-            if(callFun.data) {
-                return callFun.data.name;
+            const getChampion = await fetchChampionByName(champion);
+            if(getChampion.data) {
+                const type = getChampion.data.type;
+                if(type === "teams") {
+                    const callFun = await teamsFetchById(id);
+                    if(callFun.data) {
+                        return callFun.data.name;
+                    }
+                    else return null
+                }
+                else {
+                    const callFun = await getCountryById(id);
+                    if(callFun.data) {
+                        return callFun.data.name;
+                    }
+                    else return null
+                }
             }
-            else return null
         }
         const fetchTeam_one = async () => {
             const first = await getTeamName(team_one);
@@ -63,12 +79,25 @@ export default function AddEvent({
     useEffect(() => {
         const playersByTeam = async() => {
             setPlayers([]);
-                const callFun = await getPlayersByTeam(parseInt(team));
-                if(callFun.data) {
-                    callFun.data.map((playerObject) => {
-                        setPlayers(prev => [...prev, {key: playerObject.name, value: String(playerObject.id)}]);
-                    })
+            const getChampion = await fetchChampionByName(champion);
+            if(getChampion.data) {
+                if(getChampion.data.type === "teams") {
+                    const callFun = await getPlayersByTeam(parseInt(team));
+                    if(callFun.data) {
+                        callFun.data.map((playerObject) => {
+                            setPlayers(prev => [...prev, {key: playerObject.name, value: String(playerObject.id)}]);
+                        })
+                    }
                 }
+                else {
+                    const callFun = await getPlayersByCountry(parseInt(team));
+                    if(callFun.data) {
+                        callFun.data.map((playerObject) => {
+                            setPlayers(prev => [...prev, {key: playerObject.name, value: String(playerObject.id)}]);
+                        })
+                    }
+                }
+            }
         }
         playersByTeam();
     },[parseInt(team)]);
@@ -77,11 +106,6 @@ export default function AddEvent({
         {key: "كـروت صفـراء", value: "yellow_card"}, 
         {key: "كـروت حمـراء", value: "red_card"}, 
     ];
-    console.log(team);
-    console.log(event);
-    console.log(player);
-    console.log(champion);
-    console.log(match);
     const modalBody = <div className={styles.modalBody}>
         <SelectInput label="اختر حـدث" options={events} setValue={setEvent} />
         <SelectInput label="اختر الفريق" options={teams} setValue={setTeam} />
