@@ -48,12 +48,12 @@ export default function MatchUpdate({matcObject}: {matcObject: MatchType}) {
     }
     return(
         <>
-            <CustomButton title="تعديـل" 
+            <CustomButton title="تعديل التـاريخ" 
             bg="rgb(192, 208, 243)" 
             clicked={updateClicked}/>
             <CustomModal visible={visible} 
             setVisible={setVisible}  
-            title="تعديـل مبـاراة" 
+            title="تعديـل تـاريخ مبـاراة" 
             body= {modalBody} 
             onOk={onOk} 
             okButtonName={loading ? "جـارِ التعديـل..." : "تعديـل"}

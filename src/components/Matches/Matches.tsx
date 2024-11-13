@@ -1,14 +1,13 @@
-import { matchesFetch } from "@/apiFetching/matches/fetchMatches";
 import styles from "./matches.module.css";
 import Match from "./Match/Match";
-import { matchesResultsFetch } from "@/apiFetching/matchesResults/matchesResultsFetch";
-import { MatchType } from "@/types/matchType";
+import { fetchFrontendMatches } from "@/apiFetching/matches/fetchFrontendMatches";
+import { FrontMatchType } from "@/types/frontMatchType";
 interface ChampionGroup {  
     champion: string;  
-    matches: MatchType[];  
+    matches: FrontMatchType[];  
 }  
-const groupMatchesByChampion = (matches: MatchType[]): ChampionGroup[] => {  
-    const championMap: { [key: string]: MatchType[] } = {};  
+const groupMatchesByChampion = (matches: FrontMatchType[]): ChampionGroup[] => {  
+    const championMap: { [key: string]: FrontMatchType[] } = {};  
 
     matches.forEach(match => {  
         if (!championMap[match.championship]) {  
@@ -25,27 +24,10 @@ const groupMatchesByChampion = (matches: MatchType[]): ChampionGroup[] => {
 export default async function Matches() {
     const date = new Date();
     const today = date.toDateString();
-    const getTodayMatches = await matchesFetch(today);
-    const getTodayMatchesResults = await matchesResultsFetch(today);
+    const getTodayMatches = await fetchFrontendMatches(today);
     return(
         <div className={styles.container}>
-            {
-                !getTodayMatchesResults.data ? <p className={styles.error}>{getTodayMatchesResults.error}</p> :
-                groupMatchesByChampion(getTodayMatchesResults.data).map((match, index) => {
-                    return(
-                        <div className={styles.championContainer} key={index}>
-                            <div className={styles.champion}><p>{match.champion}</p></div>
-                            {
-                                match.matches.map((match) => {
-                                    return(
-                                        <Match key={match.id} matchObject={match} state="انتهـت" />
-                                    );
-                                })
-                            }
-                        </div>
-                    );
-                })
-            }
+
             {
                 !getTodayMatches.data ? <p className={styles.error}>{getTodayMatches.error}</p> :
                 groupMatchesByChampion(getTodayMatches.data).map((match, index) => {
@@ -55,7 +37,7 @@ export default async function Matches() {
                             {
                                 match.matches.map((match) => {
                                     return(
-                                        <Match key={match.id} matchObject={match} />
+                                        <Match key={match.championship} matchObject={match} />
                                     );
                                 })
                             }
