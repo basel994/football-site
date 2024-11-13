@@ -3,8 +3,6 @@ import { getCountryById } from "@/apiFetching/countries/getCountryById";
 import { getGoalsByMatch } from "@/apiFetching/goals/getGoalsByMatch";
 import { getPlayerById } from "@/apiFetching/players/getPlayerById";
 import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
-import { GoalType } from "@/types/goalType";
-import { MatchType } from "@/types/matchType";
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -68,7 +66,7 @@ export async function GET(request: NextRequest) {
                                         if(getPlayer.data) {
                                             player = getPlayer.data.name;
                                         }
-                                        return {team: "team", player: "player", minute: goal.minute}
+                                        return {team: team, player: player, minute: goal.minute}
                                     });
                                     return goalsArray
                                 }
