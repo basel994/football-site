@@ -8,13 +8,14 @@ import { MatchType } from "@/types/matchType";
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
-    const searchParams = request.nextUrl.searchParams;
-    const date = searchParams.get("date");
-    if(date) {
+export async function GET(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
+    const headers = request.headers;
+    headers.get("Content-Type");
+    const id = (await params).id;
+    const intId = parseInt(id);
         try {
             const getDatedMatchesQuery = await sql `
-            SELECT * FROM matches WHERE match_date::date = ${date} 
+            SELECT * FROM matches WHERE id = ${intId} 
             `;
             const matches: MatchType[] = getDatedMatchesQuery.rows.map(row => ({
                 id: row.id,
@@ -163,18 +164,6 @@ export async function GET(request: NextRequest) {
             }
         } catch(error) {
             console.log(error);
-            return NextResponse.json({error: "حدث خطأ في التاريخ! حـاول مجددا"})
-        }
-    }
-    else {
-        try {
-            const getMatchesQuery = await sql `
-            SELECT * FROM matches 
-            `;
-            return NextResponse.json({data: getMatchesQuery.rows});
-        } catch(error) {
-            console.log(error);
             return NextResponse.json({error: "حدث خطأ! حـاول مجددا"})
         }
-    }
 }

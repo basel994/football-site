@@ -16,7 +16,9 @@ export const fetchFrontendMatches = async (date?: string): Promise<ApiResponse> 
             const response: ApiResponse = await apiFetch.json();
             return response;
         }
-        return {error: "فشل في تحميـل المباريـات!"}
+        else {
+            return {error: "فشل في تحميـل المباريـات!"}
+        }
     } catch( error ) {
         console.log( error );
         return {error: "فشل الاتصــال!"}
