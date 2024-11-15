@@ -6,7 +6,7 @@ type ApiResponse = {
 };
 export const fetchFrontendMatchById = async (id: number): Promise<ApiResponse> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
-    let urlFetched = `${baseUrl}/api/matches/front/${id}`;
+    const urlFetched = `${baseUrl}/api/matches/front/${id}`;
     try {
         const apiFetch = await fetch(urlFetched, {cache: "no-store"});
         if(apiFetch.ok) {

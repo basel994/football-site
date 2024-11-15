@@ -38,8 +38,8 @@ export default async function Matches() {
                             {
                                 match.matches.map((match) => {
                                     return(
-                                        <Link href={`/matches/${match.id}`}>
-                                            <Match key={match.championship} matchObject={match} />
+                                        <Link href={`/matches/${match.id}`} key={match.id}>
+                                            <Match matchObject={match} />
                                         </Link> 
                                     );
                                 })
