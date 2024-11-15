@@ -4,7 +4,8 @@ import { FrontMatchType } from "@/types/frontMatchType";
 
 export default function MatchDetails({matchObject}: {matchObject: FrontMatchType;}) {
     const team_one_goals = matchObject.goals.filter((goal) => goal.team === matchObject.team_one);
-    const team_two_goals = matchObject.goals.filter((goal) => goal.team === matchObject.team_two)
+    const team_two_goals = matchObject.goals.filter((goal) => goal.team === matchObject.team_two);
+    console.log(team_one_goals);
     return(
             <div className={styles.match}>
                 <div className={styles.team}>
@@ -15,7 +16,13 @@ export default function MatchDetails({matchObject}: {matchObject: FrontMatchType
                             height={40} />
                             <p>{matchObject.team_one}</p>
                         </div>
-                    <p></p>
+                    {
+                        team_one_goals.map((goal) => {
+                            return(
+                                <div><p>{goal.player} - {goal.minute}</p></div>
+                            );
+                        })
+                    }
                 </div>
                 <div className={styles.details}>
                     <p className={styles.status}>{matchObject.status}</p>
@@ -39,7 +46,13 @@ export default function MatchDetails({matchObject}: {matchObject: FrontMatchType
                             height={40} />
                             <p>{matchObject.team_two}</p>
                         </div>
-                    <p></p>
+                        {
+                            team_two_goals.map((goal) => {
+                            return(
+                                <div><p>{goal.player} - {goal.minute}</p></div>
+                            );
+                            })
+                        }
                 </div>
             </div>
     );
