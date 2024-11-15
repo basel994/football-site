@@ -2,6 +2,7 @@ import { fetchChampionByName } from "@/apiFetching/championships/fetchChampionBy
 import { getCountryById } from "@/apiFetching/countries/getCountryById";
 import { getGoalsByMatch } from "@/apiFetching/goals/getGoalsByMatch";
 import { getPlayerById } from "@/apiFetching/players/getPlayerById";
+import { getRedCardsByMatch } from "@/apiFetching/redCards/getRedCardsByMatch";
 import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
 import { getYellowCardsByMatch } from "@/apiFetching/yellowCards/getYellowCardsByMatch";
 import { MatchType } from "@/types/matchType";
@@ -113,7 +114,7 @@ export async function GET(request: NextRequest) {
                                         events.push({id: goal.id, team: team, player: player, minute: goal.minute, type: "yellow"})
                                     }));
                             }
-                            const getReds = await getYellowCardsByMatch(match.id);
+                            const getReds = await getRedCardsByMatch(match.id);
                             if(getReds.data) {
                                 const fetchReds = getReds.data;
                                     await Promise.all(fetchReds.map(async(goal) => {
