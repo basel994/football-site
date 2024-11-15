@@ -2,6 +2,7 @@ import styles from "./matches.module.css";
 import Match from "./Match/Match";
 import { fetchFrontendMatches } from "@/apiFetching/matches/fetchFrontendMatches";
 import { FrontMatchType } from "@/types/frontMatchType";
+import Link from "next/link";
 interface ChampionGroup {  
     champion: string;  
     matches: FrontMatchType[];  
@@ -37,7 +38,9 @@ export default async function Matches() {
                             {
                                 match.matches.map((match) => {
                                     return(
-                                        <Match key={match.championship} matchObject={match} />
+                                        <Link href={`/matches/${match.id}`}>
+                                            <Match key={match.championship} matchObject={match} />
+                                        </Link> 
                                     );
                                 })
                             }

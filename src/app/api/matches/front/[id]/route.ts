@@ -152,7 +152,7 @@ export async function GET(request: NextRequest, {params}: {params: Promise<{id: 
                             else{
                                 redCards = [];
                             }
-                        return {championship: match.championship, team_one: team_one, team_one_logo: team_one_logo, team_two: team_two, team_two_logo: team_two_logo, match_date: match.match_date, status: match.status, goals: goals, yellowCards: yellowCards, redCards: redCards};
+                        return {id: match.id, championship: match.championship, team_one: team_one, team_one_logo: team_one_logo, team_two: team_two, team_two_logo: team_two_logo, match_date: match.match_date, status: match.status, goals: goals, yellowCards: yellowCards, redCards: redCards};
                     }));
                     return result;
                 };

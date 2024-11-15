@@ -1,4 +1,5 @@
 export type FrontMatchType = {
+    id: number;
     championship: string;
     team_one: string;
     team_one_logo: string;
