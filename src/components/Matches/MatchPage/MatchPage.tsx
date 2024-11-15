@@ -12,8 +12,10 @@ export default async function MatchPage({id}: {id: number}) {
                 getMatch.data.map((match) => {
                     return(
                         <div className={styles.championContainer} key={match.id}>
-                            <div className={styles.champion}><p>{match.championship}</p></div>
-                                        <MatchDetails matchObject={match} />
+                            <div className={styles.champion}>
+                                <p>{match.championship}</p>
+                            </div>
+                            <MatchDetails matchObject={match} />
                         </div>
                     );
                 })

@@ -30,10 +30,8 @@ export async function GET(request: NextRequest) {
                         let team_one = "", 
                         team_two = "", 
                         team_one_logo = "", 
-                        team_two_logo = "", 
-                        goals:{team: string, player: string, minute: number}[], 
-                        yellowCards: {team: string, player: string, minute: number}[], 
-                        redCards: {team: string, player: string, minute: number}[];
+                        team_two_logo = "";
+                        const events: {id: number, team: string, player: string, minute: number, type: string}[] = [];
                         const getChampion = await fetchChampionByName(match.championship);
                         if(getChampion.data) {
                             if(getChampion.data.type === "teams") {
@@ -64,7 +62,7 @@ export async function GET(request: NextRequest) {
                             const getGoals = await getGoalsByMatch(match.id);
                             if(getGoals.data) {
                                 const fetchGoals = getGoals.data;
-                                    goals = await Promise.all(fetchGoals.map(async(goal) => {
+                                    await Promise.all(fetchGoals.map(async(goal) => {
                                         let team ="", player="";
                                         const champion = await fetchChampionByName(goal.champion);
                                         if(champion.data) {
@@ -85,16 +83,13 @@ export async function GET(request: NextRequest) {
                                         if(getPlayer.data) {
                                             player = getPlayer.data.name;
                                         }
-                                        return {team: team, player: player, minute: goal.minute}
+                                        events.push({id: goal.id, team: team, player: player, minute: goal.minute, type: "goal"})
                                     }));
-                            }
-                            else{
-                                goals = [];
                             }
                             const getYellows = await getYellowCardsByMatch(match.id);
                             if(getYellows.data) {
                                 const fetchYellows = getYellows.data;
-                                    yellowCards = await Promise.all(fetchYellows.map(async(goal) => {
+                                    await Promise.all(fetchYellows.map(async(goal) => {
                                         let team ="", player="";
                                         const champion = await fetchChampionByName(goal.champion);
                                         if(champion.data) {
@@ -115,16 +110,13 @@ export async function GET(request: NextRequest) {
                                         if(getPlayer.data) {
                                             player = getPlayer.data.name;
                                         }
-                                        return {team: team, player: player, minute: goal.minute}
+                                        events.push({id: goal.id, team: team, player: player, minute: goal.minute, type: "yellow"})
                                     }));
-                            }
-                            else{
-                                yellowCards = [];
                             }
                             const getReds = await getYellowCardsByMatch(match.id);
                             if(getReds.data) {
                                 const fetchReds = getReds.data;
-                                    redCards = await Promise.all(fetchReds.map(async(goal) => {
+                                    await Promise.all(fetchReds.map(async(goal) => {
                                         let team ="", player="";
                                         const champion = await fetchChampionByName(goal.champion);
                                         if(champion.data) {
@@ -145,13 +137,10 @@ export async function GET(request: NextRequest) {
                                         if(getPlayer.data) {
                                             player = getPlayer.data.name;
                                         }
-                                        return {team: team, player: player, minute: goal.minute}
+                                        events.push({id: goal.id, team: team, player: player, minute: goal.minute, type: "red"})
                                     }));
                             }
-                            else{
-                                redCards = [];
-                            }
-                        return {id: match.id, championship: match.championship, team_one: team_one, team_one_logo: team_one_logo, team_two: team_two, team_two_logo: team_two_logo, match_date: match.match_date, status: match.status, goals: goals, yellowCards: yellowCards, redCards: redCards};
+                        return {id: match.id, championship: match.championship, team_one: team_one, team_one_logo: team_one_logo, team_two: team_two, team_two_logo: team_two_logo, match_date: match.match_date, status: match.status, events: events};
                     }));
                     return result;
                 };

@@ -3,8 +3,8 @@ import Image from "next/image";
 import { FrontMatchType } from "@/types/frontMatchType";
 
 export default function Match({matchObject}: {matchObject: FrontMatchType;}) {
-    const team_one_goals = matchObject.goals.filter((goal) => goal.team === matchObject.team_one);
-    const team_two_goals = matchObject.goals.filter((goal) => goal.team === matchObject.team_two)
+    const team_one_goals = matchObject.events.filter((goal) => goal.team === matchObject.team_one && goal.type === "goal");
+    const team_two_goals = matchObject.events.filter((goal) => goal.team === matchObject.team_two && goal.type === "goal")
     return(
             <div className={styles.match}>
                 <div className={styles.team}>
