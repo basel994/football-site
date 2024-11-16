@@ -27,7 +27,7 @@
 }
 .events div p {
     color: rgb(80, 77, 77);
-    font-weight: lighter;
+    font-size: 0.6rem;
 }
 @media screen and ( max-width: 767px) {
     .match, .teamDetails {

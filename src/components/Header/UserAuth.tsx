@@ -10,7 +10,7 @@ export default function UserAuth() {
             color="orangered" 
             icon="/images/navbar/signUp.ico" />
             </Link>
-            <Link href="/">
+            <Link href="/login">
             <CustomButton title="تسجيل الـدخول" 
             color="orangered" 
             icon="/images/navbar/login.ico" />

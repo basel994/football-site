@@ -46,8 +46,8 @@ export default function MatchDetails({matchObject}: {matchObject: FrontMatchType
                                         <div key={index}>
                                             <Image src={event.type === "goal" ? "/images/matches/match.ico" : (event.type === "yellow" ? "/images/matches/yellowcard.ico" : "/images/matches/redCard.ico")} 
                                             alt="" 
-                                            width={10} 
-                                            height={10} />
+                                            width={15} 
+                                            height={15} />
                                             <p>{event.player}</p>
                                             <p>د {event.minute}</p>
                                         </div>
@@ -76,10 +76,10 @@ export default function MatchDetails({matchObject}: {matchObject: FrontMatchType
                                 team_two_events.map((event, index) => {
                                     return(
                                         <div key={index}>
-                                            <Image src={event.type === "goal" ? "/images/matches/match.ico" : (event.type === "yellow" ? "/images/matches/yellowcard.ico" : "/images/matches/redCard.ico")} 
+                                            <Image src={event.type === "goal" ? "/images/matches/match.ico" : (event.type === "yellow" ? "/images/matches/yellowcard.ico" : "/images/matches/redcard.ico")} 
                                             alt="" 
-                                            width={10} 
-                                            height={10} />
+                                            width={15} 
+                                            height={15} />
                                             <p>{event.player}</p>
                                             <p>د {event.minute}</p>
                                         </div>

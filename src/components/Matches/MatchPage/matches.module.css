@@ -19,3 +19,8 @@
     padding: 0.5rem;
     background-color: rgb(149, 247, 173);
 }
+@media screen and ( max-width: 767px) {
+    .championContainer {
+        width: 100%;
+    }
+}

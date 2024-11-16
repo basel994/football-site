@@ -42,6 +42,11 @@ button {
 }
 .content {
   padding: 2rem 2rem;
+  background-image: url("/images/background.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: cover;
+  min-height: 100vh;
 }
 @media (hover: hover) and (pointer: fine) {
   button:hover {
