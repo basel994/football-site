@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
             const userData: UserType[] = checkUserQuery.rows.map(user => ({
                 id: user.id, 
                 name: user.name, 
+                last: user.last, 
                 password: user.password, 
                 role: user.role, 
                 image: user.image, 

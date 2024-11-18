@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Header/Navbar";
+import { UserProvider } from "@/context/userContext/userContext";
 
 const lemonada = localFont({
   src: "./fonts/Lemonada-Regular.woff",
@@ -21,12 +22,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${lemonada.variable}`}>
-        <Navbar />
-        <div className="content">
-        {children}
-        </div>
-      </body>
+      <UserProvider>
+        <body className={`${lemonada.variable}`}>
+          <Navbar />
+          <div className="content">
+            {children}
+          </div>
+        </body>
+      </UserProvider>
     </html>
   );
 }
