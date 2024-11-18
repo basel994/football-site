@@ -17,8 +17,8 @@ export async function POST(request: NextRequest) {
         }
         else {
             const insertNewUserQuery = await sql `
-            INSERT INTO users (name, last, password) 
-            VALUES (${name}, ${last}, ${password}) 
+            INSERT INTO users (name, last, password, role) 
+            VALUES (${name}, ${last}, ${password}, 'normal') 
             RETURNING *
             `;
             if(insertNewUserQuery.rows.length > 0) {
