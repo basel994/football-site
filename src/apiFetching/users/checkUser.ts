@@ -7,7 +7,7 @@ type ApiResponse = {
 export async function checkUser(formData: FormData): Promise<ApiResponse> {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     try {
-        const callApi = await fetch(`${baseUrl}/auth/login`, {
+        const callApi = await fetch(`${baseUrl}/api/auth/login`, {
             method: "POST",
             body: formData,  
         });
