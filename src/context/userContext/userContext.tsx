@@ -1,3 +1,4 @@
+"use client"
 import { UserType } from "@/types/userType"
 import { createContext, useContext, useEffect, useState } from "react";
 
