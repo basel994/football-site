@@ -6,12 +6,14 @@ import CustomButton from "@/components/CustomButton/CustomButton";
 import Image from "next/image";
 import { checkUser } from "@/apiFetching/users/checkUser";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/context/userContext/userContext";
 
 export default function Login() {
     const [name, setName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
+    const {setUser} = useUser();
     const router = useRouter();
     const loginClicked = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -29,7 +31,8 @@ export default function Login() {
                 setError(callFun.error);
             }
             else if(callFun.data) {
-                router.refresh();
+                setUser(callFun.data);
+                router.push("/");
             }
         }
     }
