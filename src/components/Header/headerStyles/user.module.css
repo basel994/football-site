@@ -1,0 +1,22 @@
+.user {
+    position: relative;
+}
+.details {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.arrow {
+    cursor: pointer;
+}
+.options {
+    position: absolute;
+    bottom: 1rem;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.showOptions {
+    display: flex;
+}
