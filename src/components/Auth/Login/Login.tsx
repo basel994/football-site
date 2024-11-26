@@ -32,7 +32,12 @@ export default function Login() {
             }
             else if(callFun.data) {
                 setUser(callFun.data);
-                router.push("/");
+                if(callFun.data.role === "admin") {
+                    router.push("/dashboard");
+                }
+                else {
+                    router.push("/");
+                }
             }
         }
     }
