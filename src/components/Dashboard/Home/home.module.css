@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.linkContainer {
+    display: flex;
+    justify-content: center;
+    flex: 0.3;
+    padding: 1.5rem;
+    border: 0.1rem solid rgb(150, 202, 226);
+    border-radius: 0.5rem;
+    transition: all 0.5s linear;
+}
+.link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+@media (hover: hover) and (pointer: fine) {
+    .linkContainer:hover {
+        box-shadow: 0 0 0.3rem 0.2rem rgb(150, 202, 226);
+    }
+}

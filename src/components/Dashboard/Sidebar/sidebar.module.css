@@ -1,0 +1,39 @@
+.sidebar {
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 1;
+    height: 100%;
+    overflow: hidden;
+}
+.sidebar .toggle {
+    transform: rotate(180deg);
+}
+.menu {
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 0vw;
+    height: 100%;
+    border-radius: 0.5rem;
+    transition: width 0.5s linear;
+    overflow: hidden;
+}
+.showMenu {
+    width: 100vw;
+}
+.links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0.3;
+    gap: 1rem;
+    height: 100%;
+    background-color: rgb(207, 224, 231);
+    color: rgb(23, 71, 43);
+    padding: 1rem 0;
+}

@@ -8,7 +8,8 @@ export default function CustomButton({
     radius, 
     icon,
     iconSize, 
-    clicked,  
+    clicked, 
+    className, 
 }: {
     title?: string, 
     bg?: string, 
@@ -17,10 +18,11 @@ export default function CustomButton({
     icon?: string,
     iconSize?: number, 
     clicked?: () => void;
+    className?: string | undefined;
 }) {
     return(
         <button style={{ backgroundColor: bg, color: color, borderRadius: `${radius ? radius : 10}px`}} 
-        className={styles.customButton} 
+        className={`${styles.customButton} ${className}`} 
         onClick={clicked}>
             <p>{title}</p>
             {

@@ -47,6 +47,7 @@ button {
   background-position: right;
   background-size: cover;
   min-height: 100vh;
+  position: relative;
 }
 @media (hover: hover) and (pointer: fine) {
   button:hover {

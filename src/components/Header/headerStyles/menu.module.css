@@ -15,6 +15,7 @@
         background-color: rgb(174, 224, 218);
         border-top: 0.1rem solid orangered;
         transition: transform 0.5s linear;
+        z-index: 2;
     }
     .smallScreenShow {
         transform: translateX(0%);
