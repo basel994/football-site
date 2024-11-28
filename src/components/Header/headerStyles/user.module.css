@@ -18,7 +18,9 @@
     align-items: center;
     gap: 1rem;
     padding: 1rem;
+    background-color: rgb(99, 248, 198);
     border: 0.1rem solid rgb(201, 247, 247);
+    z-index: 1;
 }
 .showOptions {
     display: flex;
