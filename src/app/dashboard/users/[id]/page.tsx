@@ -1,6 +1,6 @@
 import PageHeader from "@/components/PageHeader/PageHeader";
 import styles from "./page.module.css";
-import NewShow from "@/components/Dashboard/News/NewPage/NewShow";
+import UserShow from "@/components/Dashboard/Users/UserPage/UserShow";
 
 export default async function Page({params}: {params: Promise<{id: string}>}) {
     const id = (await params).id;
@@ -8,7 +8,7 @@ export default async function Page({params}: {params: Promise<{id: string}>}) {
     return(
         <div className={styles.page}>
             <PageHeader title="إعـداد المستخدم" />
-            <NewShow id={intId} />
+            <UserShow id={intId} />
         </div>
     );
 }
