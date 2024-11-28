@@ -36,7 +36,7 @@ export default function User() {
         }
             <div className={`${styles.options} ${show ? styles.showOptions : null}`}>
                 <div className={styles.option}><p>إعـدادات</p></div>
-                <div className={styles.logout} onClick={logoutClicked}><p>تسجيل الخروج</p></div>
+                <div className={styles.option} onClick={logoutClicked}><p>الخروج</p></div>
             </div>
         </div>
     );
