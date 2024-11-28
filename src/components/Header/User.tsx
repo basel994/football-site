@@ -3,11 +3,17 @@ import { useUser } from "@/context/userContext/userContext";
 import styles from "./headerStyles/user.module.css";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 export default function User() {
-    const {user} = useUser();
+    const {user, setUser} = useUser();
     const [show, setShow] = useState<boolean>(false);
+    const router = useRouter();
     const arrowClicked = () => {
         setShow(!show);
+    }
+    const logoutClicked = () => {
+        setUser(null);
+        router.push("/");
     }
     return(
         <div className={styles.user}>
@@ -29,7 +35,7 @@ export default function User() {
         }
             <div className={`${styles.options} ${show ? styles.showOptions : null}`}>
                 <p>إعـدادات</p>
-                <p>تسجيل الخروج</p>
+                <div className={styles.logout} onClick={logoutClicked}><p>تسجيل الخروج</p></div>
             </div>
         </div>
     );

@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 type UserContextType = {
     user: UserType | null; 
-    setUser: (user: UserType) => void;
+    setUser: (user: UserType | null) => void;
 }
 const UserContext = createContext<UserContextType | null>(null);
 export const UserProvider = ({children}: {children: React.ReactNode}) => {
