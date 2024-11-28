@@ -8,9 +8,7 @@ export async function userById(id: number): Promise<ApiResponse> {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
     try {
         const apiFetch = await fetch(`${baseUrl}/api/auth/users/${id}`, {
-            next: {
-                revalidate: 3600,
-            }
+            cache: "no-store", 
         });
         if(apiFetch.ok) {
             const response: ApiResponse = await apiFetch.json();
