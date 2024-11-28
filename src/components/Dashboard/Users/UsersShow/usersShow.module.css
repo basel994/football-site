@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.error {
+    color: var(--errorColor);
+}
+.table {
+    flex: 1;
+}
+.table th, .table td{
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.5rem;
+    border: 1px solid #a39e9e;
+}
+@media screen and ( max-width: 600px) {
+    .table th, .table td {
+        padding: 0.2;
+    }
+    .table th p, .table td p {
+        font-size: 0.6rem;
+    }
+}
