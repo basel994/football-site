@@ -20,10 +20,14 @@ export default function UserPage({userData}: {userData: UserType}) {
                 </tr>
                 <tr>
                     <td colSpan={4}>
-                        <Image src={userData.image} 
-                        alt="" 
-                        width={100} 
-                        height={100} />
+                        {
+                            userData.image !== null ?
+                            <Image src={userData.image} 
+                            alt="" 
+                            width={100} 
+                            height={100} /> :
+                            <p>لم يتم تحديد صورة شخصية للمستخدم</p>
+                        }
                     </td>
                     </tr>
                     <tr>
