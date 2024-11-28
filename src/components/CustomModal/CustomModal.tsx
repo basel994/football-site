@@ -32,7 +32,7 @@ export default function CustomModal(
     return(
         <div className={`${styles.container} ${visible ? styles.show : styles.hide}`}>
             <div className={styles.modal}>
-                <div className={styles.header} style={{backgroundColor: warning ? "red" : "transparent"}}>
+                <div className={styles.header} style={{backgroundColor: warning ? "rgb(235, 131, 131)" : "rgb(153, 247, 195)"}}>
                     <p>{title}</p>
                     <div className={styles.close} onClick={modalClose}>
                         <span></span>

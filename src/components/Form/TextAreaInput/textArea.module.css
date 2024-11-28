@@ -1,0 +1,15 @@
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.container textarea {
+    border: 0.1rem solid rgb(20, 204, 127);
+    border-radius: 0.8rem;
+    outline: none;
+    font-family: var(--font-lemonada);
+    padding: 0.5rem;
+    
+}
