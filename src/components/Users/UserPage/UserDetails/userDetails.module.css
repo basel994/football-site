@@ -1,0 +1,14 @@
+.container td {
+    text-align: center;
+    vertical-align: middle;
+}
+.container .header {
+    font-weight: bolder;
+}
+.container .userImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+}
