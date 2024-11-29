@@ -4,6 +4,7 @@ import styles from "./headerStyles/user.module.css";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 export default function User() {
     const {user, setUser} = useUser();
     const [show, setShow] = useState<boolean>(false);
@@ -35,7 +36,7 @@ export default function User() {
             </div>
         }
             <div className={`${styles.options} ${show ? styles.showOptions : null}`}>
-                <div className={styles.option}><p>إعـدادات</p></div>
+                {user &&<div className={styles.option}><Link href={`/users/${user.id}`}><p>إعـدادات</p></Link></div>}
                 <div className={styles.option} onClick={logoutClicked}><p>الخروج</p></div>
             </div>
         </div>
