@@ -1,36 +1,37 @@
 "use client"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import FileInput from "@/components/Form/FileInput/FileInput";
-import { userImageupdate } from "@/apiFetching/users/userImageUpdate";
 import CustomButton from "@/components/CustomButton/CustomButton";
 import CustomModal from "@/components/CustomModal/CustomModal";
 import styles from "./userMutation.module.css";
 import { useUser } from "@/context/userContext/userContext";
+import TextInput from "@/components/Form/TextInput/TextInput";
+import { userNameupdate } from "@/apiFetching/users/userNameUpdate";
 
-export default function UserImageUpdate({id}: {id: number}) {
-    const [image, setImage] = useState<File | null>(null);
+export default function UserNameUpdate({id}: {id: number}) {
+    const [newName, setNewName] = useState<string>("");
     const [message, setMessage] = useState<string>("");
     const [error, setError] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [visible, setVisible] = useState<boolean>(false);
     const router = useRouter();
     const modalBody = <div className={styles.modalBody}>
-        <FileInput label="تحديد صـورة" setState={setImage} />
+        <TextInput label="أدخل الاسم الجديد" 
+        type="text"
+        value={newName} 
+        setState={setNewName} /> 
     </div>
     const editClicked = () => {
         setVisible(true);
     }
     const {setUser} = useUser();
     const onOk = async() => {
-        if(!image) {
+        if(!newName) {
             setVisible(false);
         }
         else {
             setLoading(true);
-            const formData = new FormData();
-            formData.append("image", image);
-            const callFun = await userImageupdate(id, formData);
+            const callFun = await userNameupdate(id, newName);
             if(callFun.error) {
                 setLoading(false);
                 setMessage("");
@@ -39,7 +40,7 @@ export default function UserImageUpdate({id}: {id: number}) {
             else if(callFun.data) {
                 setLoading(false);
                 setError("");
-                setMessage("تم تعديل الصورة بنجـاح");
+                setMessage("تم تعديل الاسم بنجـاح");
                 setUser(callFun.data);
                 router.refresh();
             }
@@ -47,10 +48,10 @@ export default function UserImageUpdate({id}: {id: number}) {
     }
     return(
         <>
-            <CustomButton icon="/images/controlIcons/image-editing.png" clicked={editClicked}/>
+            <CustomButton icon="/images/controlIcons/edit.ico" clicked={editClicked}/>
             <CustomModal visible={visible} 
             setVisible={setVisible} 
-            title="تعديل صورة الملف الشخصي" 
+            title="تعديل الحساب " 
             body={modalBody} 
             onOk={onOk} 
             okButtonName={loading ? "جارِ التعديل" : "تعديل"} 

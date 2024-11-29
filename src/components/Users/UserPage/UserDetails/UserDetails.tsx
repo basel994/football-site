@@ -2,6 +2,9 @@ import { UserType } from "@/types/userType";
 import styles from "./userDetails.module.css";
 import Image from "next/image";
 import UserImageUpdate from "../UserMutation/UserImageUpdate";
+import UserNameUpdate from "../UserMutation/UserNameUpdate";
+import UserLastNameUpdate from "../UserMutation/UserLastNameUpdate";
+import UserPasswordUpdate from "../UserMutation/UserPasswordUpdate";
 export default function UserDetails({userData}: {userData: UserType}) {
     return(
         <table className={styles.container}>
@@ -28,9 +31,24 @@ export default function UserDetails({userData}: {userData: UserType}) {
                 <td><p>كلمة المرور</p> </td>
             </tr>
             <tr>
-                <td><p>{userData.name}</p></td>
-                <td><p>{userData.last}</p></td>
-                <td><p>{userData.password}</p></td>
+                <td>
+                    <div className={styles.userInfo}>
+                        <p>{userData.name}</p>
+                        <UserNameUpdate id={userData.id} />
+                    </div>
+                </td>
+                <td>
+                    <div className={styles.userInfo}>
+                        <p>{userData.last}</p>
+                        <UserLastNameUpdate id={userData.id} />
+                    </div>
+                </td>
+                <td>
+                    <div className={styles.userInfo}>
+                        <p>{userData.password}</p>
+                        <UserPasswordUpdate id={userData.id} />
+                    </div>
+                </td>
             </tr>
         </table>
     );
