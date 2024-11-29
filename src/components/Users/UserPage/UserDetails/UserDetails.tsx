@@ -6,10 +6,10 @@ export default function UserDetails({userData}: {userData: UserType}) {
     return(
         <table className={styles.container}>
             <tr>
-                <td className={styles.header}><p>{`${userData.name} ${userData.last}`}</p></td>
+                <td className={styles.header} colSpan={3}><p>{`${userData.name} ${userData.last}`}</p></td>
             </tr>
             <tr>
-                <td>
+                <td colSpan={3}>
                     <div className={styles.userImage}>
                         <Image src={userData.image} 
                         alt="" 
@@ -20,7 +20,7 @@ export default function UserDetails({userData}: {userData: UserType}) {
                 </td>
             </tr>
             <tr>
-                <td><p>تفـاصيل الحســاب:</p></td>
+                <td colSpan={3}><p>تفـاصيل الحســاب:</p></td>
             </tr>
             <tr>
                 <td><p>الاسم الأول</p> </td>

@@ -5,7 +5,7 @@ import cloudinary from "cloudinary";
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {  
     const id = (await params).id;   
     const formData = await request.formData();
-    const newImage = formData.get("newImage") as File;
+    const newImage = formData.get("image") as File;
     try {  
             cloudinary.v2.config({  
                 cloud_name: process.env.CLOUDINARY_CLOUD_NAME,  
