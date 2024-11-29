@@ -1,6 +1,5 @@
 "use client"
 import { useState } from "react";
-import styles from "./userMutation.module.css";
 import { useRouter } from "next/navigation";
 import FileInput from "@/components/Form/FileInput/FileInput";
 import { userImageupdate } from "@/apiFetching/users/userImageUpdate";
