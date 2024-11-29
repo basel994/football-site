@@ -1,6 +1,8 @@
+import { UserType } from "@/types/userType";
+
 type ApiResponse = {
     error?: string;
-    message?: string;
+    data?: UserType;
 };
 export const userImageupdate = async (id: number, formData: FormData): Promise<ApiResponse> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;

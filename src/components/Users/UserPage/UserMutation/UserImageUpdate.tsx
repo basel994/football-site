@@ -5,6 +5,7 @@ import FileInput from "@/components/Form/FileInput/FileInput";
 import { userImageupdate } from "@/apiFetching/users/userImageUpdate";
 import CustomButton from "@/components/CustomButton/CustomButton";
 import CustomModal from "@/components/CustomModal/CustomModal";
+import { useUser } from "@/context/userContext/userContext";
 
 export default function UserImageUpdate({id}: {id: number}) {
     const [image, setImage] = useState<File | null>(null);
@@ -19,6 +20,7 @@ export default function UserImageUpdate({id}: {id: number}) {
     const editClicked = () => {
         setVisible(true);
     }
+    const {setUser} = useUser();
     const onOk = async() => {
         if(!image) {
             setVisible(false);
@@ -33,10 +35,11 @@ export default function UserImageUpdate({id}: {id: number}) {
                 setMessage("");
                 setError(callFun.error);
             }
-            else if(callFun.message) {
+            else if(callFun.data) {
                 setLoading(false);
                 setError("");
-                setMessage(callFun.message);
+                setMessage("تم تعديل الصورة بنجـاح");
+                setUser(callFun.data);
                 router.refresh();
             }
         }

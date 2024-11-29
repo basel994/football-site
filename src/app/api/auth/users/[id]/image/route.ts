@@ -41,7 +41,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
                     return NextResponse.json({ error: "المستخدم غـير موجودة!" }, { status: 404 });  
                 }  
         
-                return NextResponse.json({ message: "تم تعديل الصورة بنجـاح" }, { status: 200 });             
+                return NextResponse.json({ data: res.rows[0] }, { status: 200 });             
  
 
     } catch (error) {  
