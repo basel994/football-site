@@ -44,11 +44,11 @@ export default function MatchSearchByDate() {
     }, [date] );
     return(
         <>
-        <DateInput label="حدد تاريخ" 
+        <DateInput label="" 
         setValue={setDate} 
         value={date} />
                     {
-                !matches? <p className={styles.error}>{error}</p> :
+                !matches ? <p className={styles.error}>{error}</p> :
                 groupMatchesByChampion(matches).map((match, index) => {
                     return(
                         <div className={styles.championContainer} key={index}>

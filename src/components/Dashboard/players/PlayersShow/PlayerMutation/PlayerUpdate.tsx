@@ -58,9 +58,11 @@ export default function PlayerUpdate({playerObject}: {playerObject: PlayerType})
         setVisible(true);
         setError("");
         setMessage("");
-        setName("");
-        setAge("");
-        setRole("");
+        setName(playerObject.name);
+        setAge(String(playerObject.age));
+        setRole(playerObject.role);
+        setCountry(String(playerObject.country));
+        setTeam(String(playerObject.team));
     }
     const onOk = async () => {
         if(!team || !country || !name || !age || !role) {

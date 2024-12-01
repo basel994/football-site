@@ -21,15 +21,10 @@
     vertical-align: middle;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    border: 0.1rem solid rgb(162, 162, 230);
 }
 .tableHeader {
-    background-color: rgb(115, 250, 121);
-}
-.status {
-    color: #726e6e;
-}
-.match {
-    background-color: rgb(247, 227, 174);
+    background-color: rgb(162, 238, 165);
 }
 .control {
     display: flex;

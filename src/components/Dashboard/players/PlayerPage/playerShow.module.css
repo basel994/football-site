@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.error {
+    color: var(--errorColor);
+}
+.table {
+    flex: 1;
+}
+.table th, .table td{
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.5rem;
+}
+.title {
+    text-decoration: underline;
+}
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.infoHeader {
+    color: rgb(77, 74, 74);
+    font-weight: bolder;
+}
+.infoHeader td, .info td{
+    border: 0.1rem solid rgb(186, 201, 201);
+}
+@media screen and ( max-width: 600px) {
+    .table th p, .table td p {
+        font-size: 0.6rem;
+    }
+}

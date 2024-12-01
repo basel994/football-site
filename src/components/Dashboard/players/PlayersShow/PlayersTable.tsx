@@ -1,23 +1,12 @@
 import styles from "./playersShow.module.css";
-import { teamsFetchById } from "@/apiFetching/teams/teamFetchById";
-import PlayerDelete from "./PlayerMutation/PlayerDelete";
 import { getCountryById } from "@/apiFetching/countries/getCountryById";
 import { PlayerType } from "@/types/playerType";
 import Image from "next/image";
-import PlayerUpdate from "./PlayerMutation/PlayerUpdate";
+import CustomButton from "@/components/CustomButton/CustomButton";
+import Link from "next/link";
 
 export default function PlayersTable({playersData}: {playersData: PlayerType[]}) {
-    const getTeamName = async (id: number) => {
-        const get_team = await teamsFetchById(id);
-        let team;
-        if(get_team.data) {
-            team = get_team.data.name;
-        }
-        else {
-            team= "";
-        }
-        return team;
-    }
+
     const getCountryNameById = async (id: number) => {
         const get_country = await getCountryById(id);
         let country;
@@ -63,23 +52,13 @@ export default function PlayersTable({playersData}: {playersData: PlayerType[]})
                                     {plyerObject.players.map(async(plyerObject) => {
                                         return(
                                             <>
-                                            <tr className={styles.match}>
+                                            <tr>
                                             <td><p>{plyerObject.name}</p></td>
-                                            <td><p>{await getTeamName(plyerObject.team)}</p></td>
-                                            <td><p>{plyerObject.age}</p></td>
-                                            <td><p>{plyerObject.role}</p></td>
                                             <td><Image src={plyerObject.image} 
                                             alt="" 
                                             width={40} 
                                             height={40} /></td>
-                                        </tr>
-                                        <tr>
-                                            <td colSpan={5}>
-                                                <div className={styles.control} >
-                                                    <PlayerUpdate playerObject={plyerObject} />
-                                                    <PlayerDelete id={plyerObject.id}/>
-                                                </div>
-                                            </td>
+                                            <td><Link href={`/dashboard/players/${plyerObject.id}`}><CustomButton title="إعـداد" /></Link></td>
                                         </tr>
                                         </>
                                         );
