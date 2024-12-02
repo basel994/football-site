@@ -25,7 +25,7 @@ export default function Players() {
         fetchPlayers();
     }, [] );
     useEffect(() => {
-        if(players) {
+        if(players && serach !== "") {
             const filterPlayersArray = players.filter((player) => player.name.startsWith(serach));
             setFilteredPlayers(filterPlayersArray);
         }
