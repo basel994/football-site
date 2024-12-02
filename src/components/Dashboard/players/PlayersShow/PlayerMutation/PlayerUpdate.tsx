@@ -109,7 +109,7 @@ export default function PlayerUpdate({playerObject}: {playerObject: PlayerType})
             clicked={updateClicked}/>
             <CustomModal visible={visible} 
             setVisible={setVisible}  
-            title="تعديـل مبـاراة" 
+            title="تعديـل لاعـب" 
             body= {modalBody} 
             onOk={onOk} 
             okButtonName={loading ? "جـارِ التعديـل..." : "تعديـل"}

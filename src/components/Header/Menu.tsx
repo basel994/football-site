@@ -11,7 +11,7 @@ export default function Menu() {
             <Link href="/"> <p> الرئيسية </p> </Link>
             <Link href="/matches"> <p> مبـاريـات </p> </Link>
             <Link href="/"> <p> فـرق </p> </Link>
-            <Link href="/"> <p> لاعبـون </p> </Link>
+            <Link href="/players"> <p> لاعبـون </p> </Link>
             {user && user.role === "admin" ? <Link href="/dashboard">لوحة التحكـم</Link> : null}
         </div>
     );

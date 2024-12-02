@@ -16,7 +16,7 @@ export default function UserPasswordUpdate({id}: {id: number}) {
     const [visible, setVisible] = useState<boolean>(false);
     const router = useRouter();
     const modalBody = <div className={styles.modalBody}>
-        <TextInput label="أدخل الاسم الجديد" 
+        <TextInput label="أدخل كلمة المرور الجديدة" 
         type="password"
         value={newPassword} 
         setState={setNewPassword} /> 

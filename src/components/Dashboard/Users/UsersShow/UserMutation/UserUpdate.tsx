@@ -42,7 +42,7 @@ export default function UserUpdate({userData}: {userData: UserType}) {
         options={type} 
         value={newRole}
         setValue={setNewRole} />
-        <FileInput label="تغييـر صورة الخبـر" 
+        <FileInput label="تغييـر صورة الملف الشخصي" 
         icon="/images/dashboard/championship/uploadpicture.ico" 
         setState={setNewImage}/>
     </div>
