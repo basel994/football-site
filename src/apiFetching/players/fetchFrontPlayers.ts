@@ -6,7 +6,7 @@ type ApiResponse = {
 };
 export const fetchFrontendPlayers = async (player: string): Promise<ApiResponse> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
-    let urlFetched = `${baseUrl}/api/matches/front?date=${player}`;
+    const urlFetched = `${baseUrl}/api/matches/front?date=${player}`;
     try {
         const apiFetch = await fetch(urlFetched, {cache: "no-store"});
         if(apiFetch.ok) {

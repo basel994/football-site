@@ -13,6 +13,7 @@ export default function Players() {
         const fetchPlayers = async () => {
             const callFun = await fetchFrontendPlayers(serach);
             if( callFun.data) {
+                setError("");
                 setPlayers(callFun.data);
             }
             else if(callFun.error){
