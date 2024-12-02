@@ -29,6 +29,9 @@ export default function Players() {
             const filterPlayersArray = players.filter((player) => player.name.startsWith(serach));
             setFilteredPlayers(filterPlayersArray);
         }
+        else {
+            setFilteredPlayers([]);
+        }
     }, [serach] )
     return(
         <div className={styles.container}>
