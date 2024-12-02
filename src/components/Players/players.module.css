@@ -4,7 +4,10 @@
     align-items: center;
     gap: 1rem;
 }
+.error {
+    color: var(--errorColor);
+}
 .table td {
     padding: 0.5rem;
-    border: 0.1rem solid rgb(199, 240, 241);
+    border: 0.1rem solid rgb(119, 152, 153);
 }

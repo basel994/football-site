@@ -12,7 +12,7 @@ export default function Menu() {
             <Link href="/matches"> <p> مبـاريـات </p> </Link>
             <Link href="/"> <p> فـرق </p> </Link>
             <Link href="/players"> <p> لاعبـون </p> </Link>
-            {user && user.role === "admin" ? <Link href="/dashboard">لوحة التحكـم</Link> : null}
+            {user && user.role === "admin" ? <Link href="/dashboard"><p>لوحة التحكـم</p> </Link> : null}
         </div>
     );
 }

@@ -4,6 +4,8 @@ import TextInput from "../Form/TextInput/TextInput";
 import styles from "./players.module.css";
 import { FrontPlayerType } from "@/types/frontPlayerType";
 import { fetchFrontendPlayers } from "@/apiFetching/players/fetchFrontPlayers";
+import CustomButton from "../CustomButton/CustomButton";
+import Link from "next/link";
 
 export default function Players() {
     const [serach, setSearch] = useState<string>("");
@@ -39,7 +41,7 @@ export default function Players() {
             label="ادخـل اسم لاعـب للبحـث..." 
             value={serach} 
             setState={setSearch}/>
-            <p>{error}</p>
+            <p className={styles.error}>{error}</p>
             <table className={styles.table}>
                 {
                     filteredPlayers && filteredPlayers.map((player) => {
@@ -48,6 +50,7 @@ export default function Players() {
                                 <td><p>{player.name}</p></td>
                                 <td><p>{player.country}</p></td>
                                 <td><p>{player.team}</p></td>
+                                <td><Link href={`/players/${player.id}`} ><CustomButton title="عرض التفـاصيل" /></Link></td>
                             </tr>
                         );
                     })
