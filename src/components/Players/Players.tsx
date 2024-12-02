@@ -8,10 +8,11 @@ import { fetchFrontendPlayers } from "@/apiFetching/players/fetchFrontPlayers";
 export default function Players() {
     const [serach, setSearch] = useState<string>("");
     const [players, setPlayers] = useState<FrontPlayerType[] | null>(null);
+    const [filteredPlayers, setFilteredPlayers] = useState<FrontPlayerType[] | null>(null);
     const [error, setError] = useState<string>("");
     useEffect( () => {
         const fetchPlayers = async () => {
-            const callFun = await fetchFrontendPlayers(serach);
+            const callFun = await fetchFrontendPlayers();
             if( callFun.data) {
                 setError("");
                 setPlayers(callFun.data);
@@ -22,7 +23,13 @@ export default function Players() {
             }
         }
         fetchPlayers();
-    }, [serach] );
+    }, [] );
+    useEffect(() => {
+        if(players) {
+            const filterPlayersArray = players.filter((player) => player.name.startsWith(serach));
+            setFilteredPlayers(filterPlayersArray);
+        }
+    }, [serach] )
     return(
         <div className={styles.container}>
             <TextInput type="text" 
@@ -30,9 +37,9 @@ export default function Players() {
             value={serach} 
             setState={setSearch}/>
             <p>{error}</p>
-            <table>
+            <table className={styles.table}>
                 {
-                    players && players.map((player) => {
+                    filteredPlayers && filteredPlayers.map((player) => {
                         return(
                             <tr key={player.id}>
                                 <td><p>{player.name}</p></td>

@@ -4,3 +4,7 @@
     align-items: center;
     gap: 1rem;
 }
+.table td {
+    padding: 0.5rem;
+    border: 0.1rem solid rgb(199, 240, 241);
+}

@@ -5,13 +5,11 @@ import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-    const searchParams = request.nextUrl.searchParams;
-    const player = searchParams.get("player");
-    if(player) {
+    const headers = request.headers;
+    headers.get("Content-Type");
         try{
             const getPlayersQuery = await sql `
             SELECT * FROM players 
-            WHERE name ILIKE ${player} || '%'
             `;
             const players: PlayerType[] = getPlayersQuery.rows.map(player => ({
                 id: player.id, 
@@ -51,5 +49,4 @@ export async function GET(request: NextRequest) {
             console.log(error);
             return NextResponse.json({error: "فشل تحميل اللاعبون"});
         }
-    }
 }
