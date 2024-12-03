@@ -50,7 +50,7 @@ export default function Players() {
                                 <td><p>{player.name}</p></td>
                                 <td><p>{player.country}</p></td>
                                 <td><p>{player.team}</p></td>
-                                <td><Link href={`/players/${player.id}`} ><CustomButton title="عرض التفـاصيل" /></Link></td>
+                                <td><Link href={`/players/${player.id}`} ><CustomButton title="التفـاصيل" color="rgb(38, 136, 14)" /></Link></td>
                             </tr>
                         );
                     })

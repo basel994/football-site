@@ -12,13 +12,25 @@ type CloudinaryResponse = {
   } 
 
 export async function GET(request: NextRequest) {
-    const headers = request.headers;
-    headers.get("Content-Type");
+    const searchParams = request.nextUrl.searchParams;
+    const page = searchParams.get("page");
+    const limit = searchParams.get("limit");
     try {
-        const fetchNewsQuery = await sql `
-        SELECT * FROM sportNews
-        `;
-        return NextResponse.json({data: fetchNewsQuery.rows})
+        if(page && limit) {
+            const fetchNewsQuery = await sql `
+            SELECT * FROM sportNews
+            `;
+            const startIndex = (parseInt(page) - 1) * parseInt(limit);
+            const endIndex = startIndex + parseInt(limit);
+            const paginatedNews = fetchNewsQuery.rows.slice(startIndex, endIndex);
+            return NextResponse.json({data: paginatedNews});
+        }
+        else {
+            const fetchNewsQuery = await sql `
+            SELECT * FROM sportNews
+            `;
+            return NextResponse.json({data: fetchNewsQuery.rows});
+        }
     } catch( error ) {
         console.log( error );
         return NextResponse.json({error: "فشل في تحميـل الأخبــار! الرجــاء المحاولة لاحقـاً."})

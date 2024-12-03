@@ -1,6 +1,6 @@
 import { newsFetch } from "@/apiFetching/news/newsFetch";
 import styles from "./news.module.css";
-import New from "./New/New";
+import NewsPagination from "./NewsPgination";
 
 export default async function News() {
     const callApiFun = await newsFetch();
@@ -9,9 +9,7 @@ export default async function News() {
             {
                 !callApiFun.data ? 
                 <p className={styles.error}>{callApiFun.error}</p> : 
-                callApiFun.data.map((newObject) => {
-                    return <New key={newObject.id} newObject={newObject} />
-                })
+                <NewsPagination items={callApiFun.data.length} />
             }
         </div>
     );
